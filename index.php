@@ -46,8 +46,83 @@ flatpickr("#date", {
 
   	<div class="container-contact100">
   		<div class="wrap-contact100">
-  			<h1><b><font color="red">Enregistrement indisponible</font></b></h1><br>
-        <p>Suite à la décision de la fermeture du site Internet du AirPods FC le 1er janvier 2020, plus <b>aucune demande d\'adhésion ne pourra être traitée à compter du samedi 14 septembre 2019 à 23h00 CEST</b>. Nous vous remercions pour votre compréhension.<br>
+      <form class="contact100-form validate-form">
+      <a href="https://www.airpodsfc.fr"><span class="contact100-form-title">
+        AirPods FC
+      </span></a>
+      <div class="wrap-input100 validate-input">
+        <span class="label-input100">Entrez le nom d\'utilisateur Twitter</span>
+        <input class="input100" type="text" name="username" placeholder="Nom d\'utilisateur Twitter" required=yes>
+        <span class="focus-input100"></span>
+      </div>
+      <div class="wrap-input100 input100-select">
+        <span class="label-input100">Type de licence</span>
+        <div>
+          <select class="selection-2" name="number">
+            <option>Basique</option>
+            <option>VIP</option>
+            <option>RED</option>
+          </select>
+        </div>
+        <span class="focus-input100"></span>
+      </div>
+      <div class="wrap-input100 validate-input">
+        <span class="label-input100">Preuve d\'achat : lien <a href="https://pasteboard.co"><font color="blue">pasteboard.co</font></a></span>
+        <input class="input100" type="text" name="proof" placeholder="Lien pasteboard.co" required=yes>
+        <span class="focus-input100"></span>
+      </div>
+      <div class="wrap-input100 validate-input">
+        <span class="label-input100">Date d\'achat</span>
+        <input class="input100" type="text" id="date" name="date" placeholder="AAAA-MM-JJ" required=yes>
+        <span class="focus-input100"></span>
+      </div>
+      <div class="wrap-input100 input100-select">
+        <span class="label-input100">Preuve d\'achat PDF - scan intelligent automatique (inactif)</span>
+        <div>
+        <!-- We\'ll transform this input into a pond -->
+        <input type="file"
+            class="filepond"
+            name="filepond"
+            multiple
+            data-max-file-size="15MB"
+            data-max-files="1">
+<!-- Load FilePond library -->
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<!-- Turn all file input elements into ponds -->
+<script>
+const inputElement = document.querySelector(\'input[type="file"]\');
+const pond = FilePond.create( inputElement, {
+maxFiles: 10,
+allowBrowse: true
+});
+FilePond.setOptions({
+allowDrop: true,
+allowReplace: true,
+instantUpload: true,
+server: {
+    url: \'https://www.airpodsfc.fr\',
+    process: \'/githubupdate.php\',
+    revert: \'/githubupdate.php\',
+    restore: \'/githubupdate.php?id=\',
+    fetch: \'/githubupdate.php?data=\'
+}
+});
+</script>
+        </div>
+        <span class="focus-input100"></span>
+      </div>
+      <div class="container-contact100-form-btn">
+        <div class="wrap-contact100-form-btn">
+          <div class="contact100-form-bgbtn"></div>
+          <button class="contact100-form-btn">
+            <span>
+              Envoyer la demande
+              <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+    </form>
         <br><h4><center><a href=index.php>Vérifier le statut de la licence</a></center></h4>
         <br><h4><center><a href=rules.php>Prenez connaissance du réglement</a></center></h4>
   		</div>
