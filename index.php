@@ -28,7 +28,6 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
   	<link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/upload.css">
   <!--===============================================================================================-->
-    <script src="js/upload.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
@@ -125,6 +124,7 @@ flatpickr("#date", {
   	<script src="vendor/countdowntime/countdowntime.js"></script>
   <!--===============================================================================================-->
   	<script src="js/main.js"></script>
+    <script src="js/upload.js"></script>
 
   	<!-- Global site tag (gtag.js) - Google Analytics -->
 
