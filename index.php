@@ -26,11 +26,9 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
   <!--===============================================================================================-->
   	<link rel="stylesheet" type="text/css" href="css/util.css">
   	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/upload.css">
   <!--===============================================================================================-->
-
-  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
-
+    <script src="js/upload.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
@@ -75,9 +73,9 @@ flatpickr("#date", {
       </div>
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Preuve d\'achat PDF - scan intelligent automatique (inactif)</span>
-        <div>
-        <input type="file"
-            name="file"
+        <div class="upload-box">
+          <input type="file" id="fileInput" name="file">
+          <label for="fileInput" id="fileLabel">Choose a file or drag it here</label>
         </div>
         <span class="focus-input100"></span>
       </div>
