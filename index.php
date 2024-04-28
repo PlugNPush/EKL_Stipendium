@@ -1,7 +1,7 @@
 <?php
 
 
-if ((!isset($_GET['service']) || $_GET['service'] == "") || ((!isset($_GET['username']) || $_GET['username'] == "") && $_GET['service'] == "Twitter") || ((!isset($_GET['number']) || $_GET['number'] == "") && $_GET['service'] == "Immatriculation")){
+if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['proof']) || $_GET['proof'] == "")){
   echo '<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -28,69 +28,28 @@ if ((!isset($_GET['service']) || $_GET['service'] == "") || ((!isset($_GET['user
   	<link rel="stylesheet" type="text/css" href="css/util.css">
   	<link rel="stylesheet" type="text/css" href="css/main.css">
   <!--===============================================================================================-->
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+flatpickr("#date", {
+});
+  </script>
+
   </head>
   <body>
-
-
-  <div class="container-contact100">
-  <div class="wrap-contact100">
-  <span class="contact100-form-title">
-    Fermeture actée du AirPods FC.
-  </span>
-  C\'est avec une grande tristesse que nous vous informons que la fermeture officielle du site web du AirPods FC aura lieu le 1er janvier 2020. Le site n\'aura pas de successeur ni d\'alternative. Vous retrouverez la communauté du AirPods FC sur Twitter: <a href="https://www.twitter.com/AirPodsFC">@AirPodsFC</a>. Conformément à nos engagements, convictions et notre vision d\'un web plus libre, nous n\'avons pas vendu vos données et n\'avons recolleté que les données que vous avez vous-même saisi sur ce site Internet. La date de suppression définitive de toutes les données du site Internet <a href="https://www.airpodsfc.fr">airpodsfc.fr</a> est prévue d\'ici le 31 janvier 2020. À compter de cette date, plus aucune demande de droit d\'accès, portabilité ou suppression ne pourra être traitée, car vos données auront été supprimées. Nous remercions la communauté du AirPods FC de nous avoir fait confiance et espérons vous revoir bientôt.  Si toutefois vous souhaitez exercer un droit d\'accès, de portabilité ou de suppression anticipée (à envoyer avant le 1er janvier 2020 00h01 CET), vous pouvez nous contacter à l\'adresse email <a href=mailto:contact@groupe-minaste.org>contact@groupe-minaste.org</a>. En attendant la fermeture du site, vous pouvez continuer à l\'utiliser en scrollant vers le bas. Merci d\'avoir suivi cette aventure avec nous. - L\'équipe du Groupe MINASTE et du AirPods FC.<br><a href="https://www.groupe-minaste.org"><img src="https://www.groupe-minaste.org/img/logo-bigger.png" width="150" height="150"></a><a href="https://www.extopy.com"><img src="https://www.extopy.com/images/logo.png" width="100" height="100"></a><a href="https://www.twitter.com/AirPodsFC"><img src=/images/logo.png width="120" height="120"></a>
-  </div>
-  </div>
+  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+  <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 
   	<div class="container-contact100">
   		<div class="wrap-contact100">
-  			<form class="contact100-form validate-form">
-  				<span class="contact100-form-title">
-  					AirPods FC
-  				</span>
-
-  				<div class="wrap-input100 input">
-  					<span class="label-input100">Entrez le nom d\'utilisateur Twitter à vérifier</span>
-  					<input class="input100" type="text" name="username" placeholder="Nom d\'utilisateur Twitter">
-  					<span class="focus-input100"></span>
-  				</div>
-
-          <div>
-            <p><center><font color="grey">---- OU ----</font></center></p>
-            <br>
-          </div>
-
-  				<div class="wrap-input100 input">
-  					<span class="label-input100">Entrez le numéro d\'immatriculation à vérifier</span>
-  					<input class="input100" type="text" name="number" placeholder="Numéro d\'immatriculation de licence">
-  					<span class="focus-input100"></span>
-  				</div>
-
-
-  				<div class="wrap-input100 input100-select">
-  					<span class="label-input100">Rechercher avec</span>
-  					<div>
-  						<select class="selection-2" name="service">
-  							<option>Twitter</option>
-  							<option>Immatriculation</option>
-  						</select>
-  					</div>
-  					<span class="focus-input100"></span>
-  				</div>
-
-  				<div class="container-contact100-form-btn">
-  					<div class="wrap-contact100-form-btn">
-  						<div class="contact100-form-bgbtn"></div>
-  						<button class="contact100-form-btn">
-  							<span>
-  								Rechercher la licence
-  								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-  							</span>
-  						</button>
-  					</div>
-  				</div>
-  			</form>
-        <br><h4><center><strong><font color="red">Enregistrement indisponible</font></strong></center></h4>
-        <br><h4><center><a href=rules.php>Réglement du site et des licences</a></center></h4>
+  			<h1><b><font color="red">Enregistrement indisponible</font></b></h1><br>
+        <p>Suite à la décision de la fermeture du site Internet du AirPods FC le 1er janvier 2020, plus <b>aucune demande d\'adhésion ne pourra être traitée à compter du samedi 14 septembre 2019 à 23h00 CEST</b>. Nous vous remercions pour votre compréhension.<br>
+        <br><h4><center><a href=index.php>Vérifier le statut de la licence</a></center></h4>
+        <br><h4><center><a href=rules.php>Prenez connaissance du réglement</a></center></h4>
   		</div>
   	</div>
 
@@ -169,64 +128,138 @@ else{
   }
   // Démarrage de la session
   session_start();
+  $req = $bdd->prepare('INSERT INTO requests(user, date) VALUES(:user, :date)');
+  //$req->execute(array($_GET['username']));
+  $select = $bdd->prepare('SELECT * FROM requests WHERE user = ?');
+  $select->execute(array(str_replace("@", "", $_GET['username'])));
+  $test = $select->fetch();
 
+  $sel = $bdd->prepare('SELECT * FROM licences WHERE user = ?');
+  $sel->execute(array(str_replace("@", "", $_GET['username'])));
+  $test2 = $sel->fetch();
+
+  $att = $bdd->prepare('UPDATE requests SET attempts = ? WHERE user = ?');
+
+  if (isset($test2['id'])){
+    echo '<div class="container-contact100">
+      <div class="wrap-contact100">
+        <h1>Licence déjà enregistrée.</h1>
+        <p>Votre licence a déjà été signée. Rendez-vous sur la page d\'accueil pour la consulter.</p>
+        <br><h4><a href=index.php>Vérifier le statut de la licence</a></h4>';
+  }
+
+  else if (isset($test['id'])){
+    if ($test['attempts'] >= 5 && $test['status'] != "banned"){
+      $ban = $bdd->prepare('UPDATE requests SET status = ? WHERE user = ?');
+      $ban->execute(array("banned", str_replace("@", "", $_GET['username'])));
+    }
+
+    if ($test['status'] == "banned"){
+      echo '<div class="container-contact100">
+        <div class="wrap-contact100">
+          <h1>Utilisateur banni.</h1>
+          <p>Suite à un nombre trop élevé de demandes, vous avez été banni du AirPods FC de manière définitive. Aucune licence ne vous sera attribuée.<br><b>On vous avait pourtant prévenu... Vous avez délibérément enfreint le réglement du AirPods FC en plus de générer du trafic inutile contraire au positionnement écologique d\'Apple. Vous ne méritez donc pas votre licence.</b></p>
+          <br><h4><a href=index.php>Retour à l\'accueil</a></h4>';
+    }
+      else{
+        $att->execute(array($test['attempts'] + 1, str_replace("@", "", $_GET['username'])));
+        echo '<div class="container-contact100">
+      		<div class="wrap-contact100">
+      			<h1>Demande déjà en cours...</h1>
+            <p>Une demande pour cet utilisateur est déjà en attente. Veuillez ne pas re-demander la signature de la licence. En cas de non-signature après 72h, contactez les administrateurs.<br><b>IMPORTANT : NE RAFRAICHISSEZ PAS CETTE PAGE. POUR CONSULTER VOTRE LICENCE, UTILISEZ LE LIEN CI-DESSOUS.</b></p>
+            <br><h4><a href=index.php>Vérifier le statut de la licence</a></h4>';
+      }
+
+  } else {
 echo '
   	<div class="container-contact100">
   		<div class="wrap-contact100">
-  			<h1>Votre licence AirPods FC authentique</h1>';
+  			<h1>Demande en attente de validation...</h1>
+        <p>Veullez patienter jusqu\'à 72h qu\'un administrateur du AirPods FC signe votre licence. Afin de ne pas ralentir le processus de validation des autres licences, veuillez ne pas re-soumettre votre demande avant un délai de 72h. Merci.<br><b>IMPORTANT : NE RAFRAICHISSEZ PAS CETTE PAGE. POUR CONSULTER VOTRE LICENCE, UTILISEZ LE LIEN CI-DESSOUS.</b></p>
+        <br><h4><a href=index.php>Vérifier le statut de la licence</a></h4>';
+$date = date('Y-m-d H:i:s');
+$req->execute(array(
+'user' => str_replace("@", "", $_GET['username']),
+'date' => $date
+));
 
-        if ($_GET['service'] == "Twitter") {
-          if(isset($_GET['username']) && $_GET['username'] != ""){
-            $req = $bdd->prepare('SELECT * FROM licences WHERE user = ?;');
-            $req->execute(array(str_replace("@", "", $_GET['username'])));
-            $test = $req->fetch();
+        $to  = 'fcairpods@gmail.com'; // notez la virgule
 
-            $date = date('Y-m-d H:i:s');
+     // Sujet
+     $subject = 'Demande de licence AirPods FC';
 
-            $compareddate = new DateTime($test["purchase"]);
-            $now = new DateTime();
+     $user = str_replace("@", "", $_GET['username']);
+     $type = 'undefined';
+     if (strcasecmp($_GET['number'], 'Basique') == 0) {
+       $type = 'basic';
+     }
+     else if (strcasecmp($_GET['number'], 'VIP') == 0) {
+       $type = 'vip';
+     }
+     else if (strcasecmp($_GET['number'], 'RED') == 0){
+       $type = 'red';
+     }
 
-            if (isset($test['id'])){
-            echo '<br><p>Titulaire de la licence :</p> <h3>@' . $test['user'] . '</h3>';
-            echo '<br>IMMATRICULATION DE LA LICENCE : <h4>' . ltrim($test['number'], '0') . '</h4>';
-            echo '<br><p>Titulaire depuis ' . $compareddate->diff($now)->format("%y ans, %m mois, %d jours, %h heures et %i minutes</p>");
-            echo '<br><a href="sign.php?id=' . $test['user'] . '"><img src="sign.php?id=' . $test['user'] . '" height="50%" width="100%" style="border-radius: 7px; overflow:hidden;"></a>';
-          }
-          else {
-            // echo '<br><h2>LICENCE NON TROUVÉE !</h2>';
-            echo '<br><p>Aucune licence n\'a été délivrée par l\'équipe de validation du AirPods FC à @' . str_replace("@", "", $_GET['username']) . '.</p>';
-            echo '<br><a href="sign.php?id=' . str_replace("@", "", $_GET['username']) . '"><img src="sign.php?id=' . str_replace("@", "", $_GET['username']) . '" height="50%" width="100%" style="border-radius: 7px; overflow:hidden;"></a>
-            <br><br>
-            <br><h4><center><strong><font color="red">Enregistrement indisponible</font></strong></center></h4>';
-          }
-echo '<br><p><a href="index.php">< retour</a></p> ';
-          }
-        }
+     // message
 
-        else if ($_GET['service'] == "Immatriculation") {
-          if(isset($_GET['number']) && $_GET['number'] != ""){
-            $req = $bdd->prepare('SELECT * FROM licences WHERE number = ?;');
-            $req->execute(array($_GET['number']));
-            $test = $req->fetch();
 
-            $date = date('Y-m-d H:i:s');
 
-            $compareddate = new DateTime($test["purchase"]);
-            $now = new DateTime();
-            if (isset($test['id'])){
-            echo '<br><p>Titulaire de la licence :</p> <h3>@' . $test['user'] . '</h3>';
-            echo '<br>IMMATRICULATION DE LA LICENCE : <h4>' . ltrim($test['number'], '0') . '</h4>';
-            echo '<br><p>Titulaire depuis ' . $compareddate->diff($now)->format("%y ans, %m mois, %d jours, %h heures et %i minutes</p>");
-            echo '<br><a href="sign.php?id=' . $test['user'] . '"><img src="sign.php?id=' . $test['user'] . '" height="50%" width="100%" style="border-radius: 7px; overflow:hidden;"></a>';
-          }
-          else {
-            // echo '<br><h2>LICENCE NON TROUVÉE !</h2>';
-            echo '<br><p>Aucune licence n\'a été délivrée par l\'équipe de validation du AirPods FC à @' . str_replace("@", "", $_GET['username']) . '.</p>';
-            echo '<br><a href="sign.php?id=' . str_replace("@", "", $_GET['username']) . '"><img src="sign.php?id=' . str_replace("@", "", $_GET['username']) . '" height="50%" width="100%" style="border-radius: 7px; overflow:hidden;"></a>';
-          }
-            echo '<br><br><p><a href="index.php">< retour</a></p> ';
-        } else { echo 'error in licence transfer.';}}
 
+       if ($type != 'undefined' && $_GET['date'] != ''){
+         $message = '
+         <html>
+          <body>
+           <h1>Une demande d\'Immatriculation de licence est en attente.</h1>
+           <p>Nom d\'utilisateur Twitter:</p>
+           <h4>@' . $user . '</h4>
+           <br>
+           <p>Type de licence demandee:</p>
+           <h4>' . $type . '</h4>
+           <p>Preuve d\'achat</p><br>
+           <img src=' . $_GET['proof'] . '><br><p>' . $_GET['proof'] . '</p>
+           <p>Date d\'achat indiquee:</p>
+           <h4>' . $_GET['date'] . '</h4>
+         <h3><a href="https://admin.airpodsfc.fr/pages/forms/fastsign.php?username2C=' . $user . '&type=' . $type . '&date=' . $_GET['date'] . '">Valider avec FASTSIGN</a></h3>
+         <h3><a href="https://admin.airpodsfc.fr/pages/forms/create.php">Si une erreur est presente, validez manuellement la licence ici</a></h3>
+         <h4>ALPHA - RAPPORT D\'ANALYSE AUTOMATIQUE PDF</h4>
+         <p>' . $_GET['filepond'] . '</p>
+        </body>
+       </html>
+       ';
+     } else {
+       $message = '
+       <html>
+        <body>
+        <h1>Une demande d\'Immatriculation de licence est en attente.</h1>
+        <p>Nom d\'utilisateur Twitter:</p>
+        <h4>' . $_GET['username'] . '</h4>
+        <br>
+        <p>Type de licence demandee:</p>
+        <h4>' . $_GET['number'] . '</h4>
+        <p>Preuve d\'achat</p><br>
+         <img src=' . $_GET['proof'] . '><br><p>' . $_GET['proof'] . '</p>
+         <p>Date d\'achat indiquee:</p>
+         <h4>' . $_GET['date'] . '</h4>
+       <h3><a href="https://admin.airpodsfc.fr/pages/forms/create.php">FASTSIGN indisponible, validez manuellement la licence</a></h3>
+       <h2>ALPHA - RAPPORT D\'ANALYSE AUTOMATIQUE PDF</h2>
+       <p>' . $_GET['filepond'] . '</p>
+      </body>
+     </html>
+     ';
+     }
+
+
+     // Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
+     $headers[] = 'MIME-Version: 1.0';
+     $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+
+     // En-têtes additionnels
+     $headers[] = 'To: AirPods FC<fcairpods@gmail.com>';
+     $headers[] = 'From: Systeme AirPods FC <noreply@airpodsfc.fr>';
+
+     // Envoi
+     mail($to, $subject, $message, implode("\r\n", $headers));
+}
         echo '
 
   		</div>
