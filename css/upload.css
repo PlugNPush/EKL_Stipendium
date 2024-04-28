@@ -33,3 +33,7 @@ label#fileLabel {
 .upload-box:hover {
     background-color: #f0f8ff;
 }
+
+.file-icon {
+    margin-right: 10px;
+}

@@ -73,8 +73,16 @@ flatpickr("#date", {
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Preuve d\'achat PDF - scan intelligent automatique (inactif)</span>
         <div class="upload-box">
-          <input type="file" id="fileInput" name="file">
-          <label for="fileInput" id="fileLabel">Choose a file or drag it here</label>
+          <input type="file" class="file-input" name="file1">
+          <label for="file1"><span class="file-icon">&#128196;</span> Choose a file or drag it here</label>
+        </div>
+        <span class="focus-input100"></span>
+      </div>
+      <div class="wrap-input100 input100-select">
+        <span class="label-input100">Preuve d\'achat PDF - scan intelligent automatique (inactif)</span>
+        <div class="upload-box">
+          <input type="file" class="file-input" name="file2">
+          <label for="file2"><span class="file-icon">&#128196;</span> Choose a file or drag it here</label>
         </div>
         <span class="focus-input100"></span>
       </div>
