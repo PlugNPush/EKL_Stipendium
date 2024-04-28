@@ -27,9 +27,9 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
   	<link rel="stylesheet" type="text/css" href="css/util.css">
   	<link rel="stylesheet" type="text/css" href="css/main.css">
   <!--===============================================================================================-->
-  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -40,12 +40,10 @@ flatpickr("#date", {
 
   </head>
   <body>
-  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-  <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 
   	<div class="container-contact100">
   		<div class="wrap-contact100">
-      <form class="contact100-form validate-form">
+      <form class="contact100-form validate-form dropzone">
       <a href="https://www.airpodsfc.fr"><span class="contact100-form-title">
         AirPods FC
       </span></a>
@@ -78,31 +76,8 @@ flatpickr("#date", {
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Preuve d\'achat PDF - scan intelligent automatique (inactif)</span>
         <div>
-        <!-- We\'ll transform this input into a pond -->
         <input type="file"
-            class="filepond"
-            name="filepond"
-            multiple
-            data-max-file-size="15MB"
-            data-max-files="1">
-<!-- Load FilePond library -->
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-<!-- Turn all file input elements into ponds -->
-<script>
-const inputElement = document.querySelector(\'input[type="file"]\');
-const pond = FilePond.create( inputElement, {
-maxFiles: 10,
-allowBrowse: true
-});
-FilePond.setOptions({
-allowDrop: true,
-allowReplace: true,
-instantUpload: true,
-server: {
-    url: \'https://uploads.elsie-kuehn-leitz-stipendium.de\'
-}
-});
-</script>
+            name="file"
         </div>
         <span class="focus-input100"></span>
       </div>
