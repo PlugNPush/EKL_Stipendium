@@ -40,7 +40,7 @@ flatpickr("#date", {
 
   	<div class="container-contact100">
   		<div class="wrap-contact100">
-      <form class="contact100-form validate-form dropzone">
+      <form class="contact100-form validate-form">
       <a href="https://www.airpodsfc.fr"><span class="contact100-form-title">
         AirPods FC
       </span></a>
