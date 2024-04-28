@@ -7,14 +7,14 @@ document.querySelectorAll('.file-input').forEach(input => {
 
         switch(fileExtension) {
             case 'pdf':
-                iconSpan.innerHTML = '&#128209;'; // PDF icon
+                iconSpan.innerHTML = '<i class="fa-solid fa-file-pdf"></i>'; // PDF icon
                 break;
             case 'doc':
             case 'docx':
-                iconSpan.innerHTML = '&#128187;'; // Word icon
+                iconSpan.innerHTML = '<i class="fa-solid fa-file-word"></i>'; // Word icon
                 break;
             default:
-                iconSpan.innerHTML = '&#128196;'; // default file icon
+                iconSpan.innerHTML = '<i class="fa-solid fa-file"></i>'; // default file icon
         }
 
         label.textContent = ' ' + fileName;
