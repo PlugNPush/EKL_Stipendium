@@ -1,10 +1,19 @@
 <?php
 
+require_once dirname(__FILE__).'/../../config/config.php';
+  try {
+    $bdd = new PDO('mysql:host='.getDBHost().';dbname=EKL_Stipendium', getDBUsername(), getDBPassword(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));
+  } catch(Exception $e) {
+    exit ('Erreur while connecting to database: '.$e->getMessage());
+  }
+  // Démarrage de la session
+  session_start();
+
 if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['proof']) || $_GET['proof'] == "")){
   echo '<!DOCTYPE html>
   <html lang="en">
   <head>
-  	<title>AirPods FC</title>
+  	<title>Bewerbungsformular - Elsie Kühn-Leitz Stipendium</title>
   	<meta charset="UTF-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   <!--===============================================================================================-->
@@ -41,9 +50,19 @@ flatpickr("#date", {
   	<div class="container-contact100">
   		<div class="wrap-contact100">
       <form class="contact100-form validate-form">
-      <a href="https://www.airpodsfc.fr"><span class="contact100-form-title">
-        AirPods FC
+      <a href="https://www.elsie-kuehn-leitz-stipendium.de"><span class="contact100-form-title">
+        Elsie Kühn-Leitz Stipendium<br>Bewerbungsformular
       </span></a>
+      <div class="wrap-input100 validate-input">
+        <span class="label-input100">Entrez le nom d\'utilisateur Twitter</span>
+        <input class="input100" type="text" name="username" placeholder="Nom d\'utilisateur Twitter" required=yes>
+        <span class="focus-input100"></span>
+      </div>
+      <div class="wrap-input100 validate-input">
+        <span class="label-input100">Entrez le nom d\'utilisateur Twitter</span>
+        <input class="input100" type="text" name="username" placeholder="Nom d\'utilisateur Twitter" required=yes>
+        <span class="focus-input100"></span>
+      </div>
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Entrez le nom d\'utilisateur Twitter</span>
         <input class="input100" type="text" name="username" placeholder="Nom d\'utilisateur Twitter" required=yes>
@@ -52,10 +71,14 @@ flatpickr("#date", {
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Type de licence</span>
         <div>
-          <select class="selection-2" name="number">
-            <option>Basique</option>
-            <option>VIP</option>
-            <option>RED</option>
+          <select class="selection-2" name="number">';
+
+            $query = $bdd->query('SELECT * FROM countries');
+            while ($data = $query->fetch()){
+              echo '<option value="' . $data['id'] . '">' . $data['country_name'] . '</option>';
+            }
+
+            echo '
           </select>
         </div>
         <span class="focus-input100"></span>
@@ -98,14 +121,13 @@ flatpickr("#date", {
         </div>
       </div>
     </form>
-        <br><h4><center><a href=index.php>Vérifier le statut de la licence</a></center></h4>
-        <br><h4><center><a href=rules.php>Prenez connaissance du réglement</a></center></h4>
+        <br><h4><center><a href=https://www.elsie-kuehn-leitz-stipendium.de>Formular aufgeben</a></center></h4>
   		</div>
   	</div>
 
     <footer>
-      <p><center>Plateforme réalisée par <a href="https://www.plugn.fr">Michaël Nass</a> en collaboration avec le AirPods FC - Hébergé bénévolement par le <a href="https://www.groupe-minaste.org">Groupe MINASTE</a> - <a href=/mentions-legales.html>Mentions légales</a></center></p>
-      <p><center>AirPods est une marque déposée d\'Apple Inc. Cette plateforme est à but ludique et non-lucratif, et n\'est pas affiliée à Apple Inc.<center></p>
+      <p><center>Diese Website ist ehrenamtlich von der <a href="https://www.groupe-minaste.org">Groupe MINASTE</a> gehostet.</center></p>
+      <p><center>Betreiber: Wetzlarer Kulturgemeinschaft e.V. – Postfach 2945, 35539 Wetzlar – www.wetzlarer-kulturgemeinschaft.de – Impressum – Datenschutz<center></p>
     </footer>
 
   	<div id="dropDownSelect1"></div>
@@ -146,7 +168,7 @@ else{
   echo '<!DOCTYPE html>
   <html lang="en">
   <head>
-  	<title>AirPods FC</title>
+  <title>Bewerbungsformular - Elsie Kühn-Leitz Stipendium</title>
   	<meta charset="UTF-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   <!--===============================================================================================-->
@@ -171,14 +193,7 @@ else{
   <!--===============================================================================================-->
   </head>
   <body>';
-  require_once dirname(__FILE__).'/../../../config/config.php';
-  try {
-    $bdd = new PDO('mysql:host='.getDBHost().';dbname=AirPodsFC', getDBUsername(), getDBPassword(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));
-  } catch(Exception $e) {
-    exit ('Erreur while connecting to database: '.$e->getMessage());
-  }
-  // Démarrage de la session
-  session_start();
+
   $req = $bdd->prepare('INSERT INTO requests(user, date) VALUES(:user, :date)');
   //$req->execute(array($_GET['username']));
   $select = $bdd->prepare('SELECT * FROM requests WHERE user = ?');
@@ -316,8 +331,8 @@ $req->execute(array(
   		</div>
   	</div>
     <footer>
-      <p><center>Plateforme réalisée par <a href="https://www.plugn.fr">Michaël Nass</a> en collaboration avec le AirPods FC - Hébergé bénévolement par le <a href="https://www.groupe-minaste.org">Groupe MINASTE</a> - <a href=/mentions-legales.html>Mentions légales</a></center></p>
-      <p><center>AirPods est une marque déposée d\'Apple Inc. Cette plateforme est à but ludique et non-lucratif, et n\'est pas affiliée à Apple Inc.<center></p>
+      <p><center>Diese Website ist ehrenamtlich von der <a href="https://www.groupe-minaste.org">Groupe MINASTE</a> gehostet.</center></p>
+      <p><center>Betreiber: Wetzlarer Kulturgemeinschaft e.V. – Postfach 2945, 35539 Wetzlar – www.wetzlarer-kulturgemeinschaft.de – Impressum – Datenschutz<center></p>
     </footer>
 
 
