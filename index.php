@@ -39,10 +39,6 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
   <!--===============================================================================================-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
-flatpickr("#date", {
-});
-  </script>
 
   </head>
   <body>
@@ -91,7 +87,7 @@ flatpickr("#date", {
       </div>
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Date d\'achat</span>
-        <input class="input100" type="text" id="date" name="date" placeholder="AAAA-MM-JJ" required=yes>
+        <input class="input100" type="date" id="date" name="date" placeholder="AAAA-MM-JJ" required=yes>
         <span class="focus-input100"></span>
       </div>
       <div class="wrap-input100 input100-select">
@@ -156,6 +152,13 @@ flatpickr("#date", {
   <!--===============================================================================================-->
   	<script src="js/main.js"></script>
     <script src="js/upload.js"></script>
+
+    <script>
+      flatpickr("#date", {
+        enableTime: false,
+        dateFormat: "Y-m-d",
+        minDate: "today"});
+    </script>
 
   	<!-- Global site tag (gtag.js) - Google Analytics -->
 
