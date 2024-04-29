@@ -71,7 +71,8 @@ flatpickr("#date", {
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Type de licence</span>
         <div>
-          <select class="selection-2" name="number">';
+          <select class="selection-2" name="number">
+            <option hidden disabled selected value> -- select an option -- </option>';
 
             $query = $bdd->query('SELECT * FROM countries');
             while ($data = $query->fetch()){
