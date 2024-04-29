@@ -93,7 +93,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Preuve d\'achat PDF - scan intelligent automatique (inactif)</span>
         <div class="upload-box">
-          <input type="file" class="file-input" name="file1">
+          <input type="file" class="file-input" name="file1" required=yes>
           <label for="file1"><span class="file-icon"><i class="fa fa-upload"></i></span> Choose a file or drag it here</label>
         </div>
         <span class="focus-input100"></span>
@@ -101,7 +101,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Preuve d\'achat PDF - scan intelligent automatique (inactif)</span>
         <div class="upload-box">
-          <input type="file" class="file-input" name="file2">
+          <input type="file" class="file-input" name="file2" required=yes>
           <label for="file2"><span class="file-icon"><i class="fa fa-upload"></i></span> Choose a file or drag it here</label>
         </div>
         <span class="focus-input100"></span>
@@ -111,7 +111,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
           <div class="contact100-form-bgbtn"></div>
           <button class="contact100-form-btn">
             <span>
-              Envoyer la demande
+              Jetzt bewerben!
               <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
             </span>
           </button>
