@@ -47,7 +47,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
   		<div class="wrap-contact100">
       <form class="contact100-form validate-form">
       <a href="https://www.elsie-kuehn-leitz-stipendium.de"><span class="contact100-form-title">
-        Elsie Kühn-Leitz Stipendium<br>Bewerbungsformular
+        Elsie Kühn-Leitz Stipendium Bewerbungs&shy;formular
       </span></a>
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Entrez le nom d\'utilisateur Twitter</span>
