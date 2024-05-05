@@ -50,28 +50,28 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         Elsie Kühn-Leitz Stipendium Bewerbungs&shy;formular
       </span></a>
 
-      <--! E-Mail-Adresse -->
+      <!-- E-Mail-Adresse -->
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Bitte geben Sie Ihre E-Mail-Adresse ein</span>
         <input class="input100" type="email" name="email" placeholder="E-Mail-Adresse" required>
         <span class="focus-input100"></span>
       </div>
 
-      <--! Name -->
+      <!-- Name -->
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Bitte geben Sie Ihren Namen ein</span>
         <input class="input100" type="text" name="lastname" placeholder="Name" required>
         <span class="focus-input100"></span>
       </div>
 
-      <--! Vorname -->
+      <!-- Vorname -->
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Bitte geben Sie Ihren Vornamen ein</span>
         <input class="input100" type="text" name="firstname" placeholder="Vorname" required>
         <span class="focus-input100"></span>
       </div>
 
-      <--! Geschlecht -->
+      <!-- Geschlecht -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Geschlecht</span>
         <div>
@@ -89,7 +89,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         <span class="focus-input100"></span>
       </div>
 
-      <--! Alter -->
+      <!-- Alter -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Alter (zum Zeitpunkt der Bewerbung)</span>
         <div>
@@ -105,10 +105,10 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
           </select>
         </div>
         <span class="focus-input100"></span>
-        <span class="label-input100">Hinweis: Nur in dieser Altersklasse wird das Stipendium vergeben.</span>
       </div>
+      <span class="label-input100">Hinweis: Nur in dieser Altersklasse wird das Stipendium vergeben.</span>
 
-      <--! Staatsbürgerschaft -->
+      <!-- Staatsbürgerschaft -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Type de licence</span>
         <div>
@@ -126,7 +126,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         <span class="focus-input100"></span>
       </div>
 
-      <--! Staatsbürgerschaft 2 -->
+      <!-- Staatsbürgerschaft 2 -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Zweite Staatsbürgerschaft (optional)</span>
         <div>
@@ -144,7 +144,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         <span class="focus-input100"></span>
       </div>
 
-      <--! Instrument -->
+      <!-- Instrument -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Instrument</span>
         <div>
@@ -162,14 +162,14 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         <span class="focus-input100"></span>
       </div>
 
-      <--! Musikhochschule -->
+      <!-- Musikhochschule -->
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Bitte geben Sie Ihre Musikhochschule ein</span>
         <input class="input100" type="text" name="school" placeholder="Musikhochschule" required>
         <span class="focus-input100"></span>
       </div>
 
-      <--! Gegenwärtiger Studiengang -->
+      <!-- Gegenwärtiger Studiengang -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Gegenwärtiger Studiengang</span>
         <div>
@@ -187,7 +187,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         <span class="focus-input100"></span>
       </div>
 
-      <--! Bewerbungsschreiben -->
+      <!-- Bewerbungsschreiben -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Bewerbungsschreiben</span>
         <div class="upload-box">
@@ -195,10 +195,10 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
           <label for="file_cover_letter"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
         </div>
         <span class="focus-input100"></span>
-        <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
       </div>
+      <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
 
-      <--! Lebenslauf -->
+      <!-- Lebenslauf -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Lebenslauf</span>
         <div class="upload-box">
@@ -206,10 +206,10 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
           <label for="file_resume"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
         </div>
         <span class="focus-input100"></span>
-        <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
       </div>
+      <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
 
-      <--! Empfehlungsschreiben -->
+      <!-- Empfehlungsschreiben -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Empfehlungsschreiben</span>
         <div class="upload-box">
@@ -217,10 +217,10 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
           <label for="file_recommendations"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
         </div>
         <span class="focus-input100"></span>
-        <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
       </div>
+      <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
 
-      <--! Programm im Falle eines Vorspiels in Wetzlar -->
+      <!-- Programm im Falle eines Vorspiels in Wetzlar -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Programm im Falle eines Vorspiels in Wetzlar</span>
         <div class="upload-box">
@@ -228,18 +228,18 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
           <label for="file_program"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
         </div>
         <span class="focus-input100"></span>
-        <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
       </div>
+      <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
 
-      <--! Vorstellungsfilm -->
+      <!-- Vorstellungsfilm -->
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Vorstellungsfilm : <a href="https://www.youtube.com">YouTube</a>, <a href="https://www.vimeo.com">Vimeo</a>, <a href="https://www.dailymotion.com">Dailymotion</a> oder ähnlich</span>
         <input class="input100" type="url" name="video" placeholder="Link zu YouTube, Vimeo, Dailymotion oder ähnlich" required>
         <span class="focus-input100"></span>
-        <span class="label-input100">Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</span>
       </div>
+      <span class="label-input100">Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</span>
 
-      <--! Formular absenden -->
+      <!-- Formular absenden -->
       <div class="container-contact100-form-btn">
         <div class="wrap-contact100-form-btn">
           <div class="contact100-form-bgbtn"></div>
