@@ -106,11 +106,11 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <span class="label-input100">Hinweis: Nur in dieser Altersklasse wird das Stipendium vergeben.</span>
+      <div>Hinweis: Nur in dieser Altersklasse wird das Stipendium vergeben.</div>
 
       <!-- Staatsbürgerschaft -->
       <div class="wrap-input100 input100-select">
-        <span class="label-input100">Type de licence</span>
+        <span class="label-input100">Staatsbürgerschaft</span>
         <div>
           <select class="selection-2" name="citizenship" required>
             <option hidden disabled selected value> -- Bitte auswählen -- </option>';
@@ -196,7 +196,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
+      <div>Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
 
       <!-- Lebenslauf -->
       <div class="wrap-input100 input100-select">
@@ -207,7 +207,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
+      <div>Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
 
       <!-- Empfehlungsschreiben -->
       <div class="wrap-input100 input100-select">
@@ -218,7 +218,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
+      <div>Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
 
       <!-- Programm im Falle eines Vorspiels in Wetzlar -->
       <div class="wrap-input100 input100-select">
@@ -229,7 +229,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <span class="label-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
+      <div>Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
 
       <!-- Vorstellungsfilm -->
       <div class="wrap-input100 validate-input">
@@ -237,7 +237,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         <input class="input100" type="url" name="video" placeholder="Link zu YouTube, Vimeo, Dailymotion oder ähnlich" required>
         <span class="focus-input100"></span>
       </div>
-      <span class="label-input100">Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</span>
+      <div>Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</div>
 
       <!-- Formular absenden -->
       <div class="container-contact100-form-btn">
