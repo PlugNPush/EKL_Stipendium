@@ -49,26 +49,70 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
       <a href="https://www.elsie-kuehn-leitz-stipendium.de"><span class="contact100-form-title">
         Elsie Kühn-Leitz Stipendium Bewerbungs&shy;formular
       </span></a>
+
+      <--! E-Mail-Adresse -->
       <div class="wrap-input100 validate-input">
-        <span class="label-input100">Entrez le nom d\'utilisateur Twitter</span>
-        <input class="input100" type="text" name="username" placeholder="Nom d\'utilisateur Twitter" required=yes>
+        <span class="label-input100">Bitte geben Sie Ihre E-Mail-Adresse ein</span>
+        <input class="input100" type="email" name="email" placeholder="E-Mail-Adresse" required>
         <span class="focus-input100"></span>
       </div>
+
+      <--! Name -->
       <div class="wrap-input100 validate-input">
-        <span class="label-input100">Entrez le nom d\'utilisateur Twitter</span>
-        <input class="input100" type="text" name="username" placeholder="Nom d\'utilisateur Twitter" required=yes>
+        <span class="label-input100">Bitte geben Sie Ihren Namen ein</span>
+        <input class="input100" type="text" name="lastname" placeholder="Name" required>
         <span class="focus-input100"></span>
       </div>
+
+      <--! Vorname -->
       <div class="wrap-input100 validate-input">
-        <span class="label-input100">Entrez le nom d\'utilisateur Twitter</span>
-        <input class="input100" type="text" name="username" placeholder="Nom d\'utilisateur Twitter" required=yes>
+        <span class="label-input100">Bitte geben Sie Ihren Vornamen ein</span>
+        <input class="input100" type="text" name="firstname" placeholder="Vorname" required>
         <span class="focus-input100"></span>
       </div>
+
+      <--! Geschlecht -->
+      <div class="wrap-input100 input100-select">
+        <span class="label-input100">Geschlecht</span>
+        <div>
+          <select class="selection-2" name="gender" required>
+            <option hidden disabled selected value> -- Bitte auswählen -- </option>';
+
+            $query = $bdd->query('SELECT * FROM genders');
+            while ($data = $query->fetch()){
+              echo '<option value="' . $data['id'] . '">' . $data['gender_name'] . '</option>';
+            }
+
+            echo '
+          </select>
+        </div>
+        <span class="focus-input100"></span>
+      </div>
+
+      <--! Alter -->
+      <div class="wrap-input100 input100-select">
+        <span class="label-input100">Alter (zum Zeitpunkt der Bewerbung)</span>
+        <div>
+          <select class="selection-2" name="age" required>
+            <option hidden disabled selected value> -- Bitte auswählen -- </option>';
+
+            $query = $bdd->query('SELECT * FROM ages');
+            while ($data = $query->fetch()){
+              echo '<option value="' . $data['id'] . '">' . $data['age'] . '</option>';
+            }
+
+            echo '
+          </select>
+        </div>
+        <span class="focus-input100">Hinweis: Nur in dieser Altersklasse wird das Stipendium vergeben.</span>
+      </div>
+
+      <--! Staatsbürgerschaft -->
       <div class="wrap-input100 input100-select">
         <span class="label-input100">Type de licence</span>
         <div>
-          <select class="selection-2" name="number">
-            <option hidden disabled selected value> -- select an option -- </option>';
+          <select class="selection-2" name="citizenship" required>
+            <option hidden disabled selected value> -- Bitte auswählen -- </option>';
 
             $query = $bdd->query('SELECT * FROM countries');
             while ($data = $query->fetch()){
@@ -80,32 +124,116 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <div class="wrap-input100 validate-input">
-        <span class="label-input100">Preuve d\'achat : lien <a href="https://pasteboard.co"><font color="blue">pasteboard.co</font></a></span>
-        <input class="input100" type="text" name="proof" placeholder="Lien pasteboard.co" required=yes>
-        <span class="focus-input100"></span>
-      </div>
-      <div class="wrap-input100 validate-input">
-        <span class="label-input100">Date d\'achat</span>
-        <input class="input100" type="date" id="date" name="date" placeholder="AAAA-MM-JJ" required=yes>
-        <span class="focus-input100"></span>
-      </div>
+
+      <--! Staatsbürgerschaft 2 -->
       <div class="wrap-input100 input100-select">
-        <span class="label-input100">Preuve d\'achat PDF - scan intelligent automatique (inactif)</span>
-        <div class="upload-box">
-          <input type="file" class="file-input" name="file1" required=yes>
-          <label for="file1"><span class="file-icon"><i class="fa fa-upload"></i></span> Choose a file or drag it here</label>
+        <span class="label-input100">Zweite Staatsbürgerschaft (optional)</span>
+        <div>
+          <select class="selection-2" name="citizenship2">
+            <option selected value>Ohne zweite Staatsbürgerschaft</option>';
+
+            $query = $bdd->query('SELECT * FROM countries');
+            while ($data = $query->fetch()){
+              echo '<option value="' . $data['id'] . '">' . $data['country_name'] . '</option>';
+            }
+
+            echo '
+          </select>
         </div>
         <span class="focus-input100"></span>
       </div>
+
+      <--! Instrument -->
       <div class="wrap-input100 input100-select">
-        <span class="label-input100">Preuve d\'achat PDF - scan intelligent automatique (inactif)</span>
-        <div class="upload-box">
-          <input type="file" class="file-input" name="file2" required=yes>
-          <label for="file2"><span class="file-icon"><i class="fa fa-upload"></i></span> Choose a file or drag it here</label>
+        <span class="label-input100">Instrument</span>
+        <div>
+          <select class="selection-2" name="instrument" required>
+            <option hidden disabled selected value> -- Bitte auswählen -- </option>';
+
+            $query = $bdd->query('SELECT * FROM instruments');
+            while ($data = $query->fetch()){
+              echo '<option value="' . $data['id'] . '">' . $data['instrument_name'] . '</option>';
+            }
+
+            echo '
+          </select>
         </div>
         <span class="focus-input100"></span>
       </div>
+
+      <--! Musikhochschule -->
+      <div class="wrap-input100 validate-input">
+        <span class="label-input100">Bitte geben Sie Ihre Musikhochschule ein</span>
+        <input class="input100" type="text" name="school" placeholder="Musikhochschule" required>
+        <span class="focus-input100"></span>
+      </div>
+
+      <--! Gegenwärtiger Studiengang -->
+      <div class="wrap-input100 input100-select">
+        <span class="label-input100">Gegenwärtiger Studiengang</span>
+        <div>
+          <select class="selection-2" name="edu_level" required>
+            <option hidden disabled selected value> -- Bitte auswählen -- </option>';
+
+            $query = $bdd->query('SELECT * FROM edu_levels');
+            while ($data = $query->fetch()){
+              echo '<option value="' . $data['id'] . '">' . $data['edu_level'] . '</option>';
+            }
+
+            echo '
+          </select>
+        </div>
+        <span class="focus-input100"></span>
+      </div>
+
+      <--! Bewerbungsschreiben -->
+      <div class="wrap-input100 input100-select">
+        <span class="label-input100">Bewerbungsschreiben</span>
+        <div class="upload-box">
+          <input type="file" class="file-input" name="file_cover_letter" required>
+          <label for="file_cover_letter"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
+        </div>
+        <span class="focus-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
+      </div>
+
+      <--! Lebenslauf -->
+      <div class="wrap-input100 input100-select">
+        <span class="label-input100">Lebenslauf</span>
+        <div class="upload-box">
+          <input type="file" class="file-input" name="file_resume" required>
+          <label for="file_resume"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
+        </div>
+        <span class="focus-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
+      </div>
+
+      <--! Empfehlungsschreiben -->
+      <div class="wrap-input100 input100-select">
+        <span class="label-input100">Empfehlungsschreiben</span>
+        <div class="upload-box">
+          <input type="file" class="file-input" name="file_recommendations" required>
+          <label for="file_recommendations"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
+        </div>
+        <span class="focus-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
+      </div>
+
+      <--! Programm im Falle eines Vorspiels in Wetzlar -->
+      <div class="wrap-input100 input100-select">
+        <span class="label-input100">Programm im Falle eines Vorspiels in Wetzlar</span>
+        <div class="upload-box">
+          <input type="file" class="file-input" name="file_program" required>
+          <label for="file_program"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
+        </div>
+        <span class="focus-input100">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</span>
+      </div>
+
+      <--! Vorstellungsfilm -->
+      <div class="wrap-input100 validate-input">
+        <span class="label-input100">Vorstellungsfilm : <a href="https://www.youtube.com">YouTube</a>, <a href="https://www.vimeo.com">Vimeo</a>, <a href="https://www.dailymotion.com">Dailymotion</a> oder ähnlich</span>
+        <input class="input100" type="url" name="video" placeholder="Link zu YouTube, Vimeo, Dailymotion oder ähnlich" required>
+        <span class="focus-input100">Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</span>
+      </div>
+
+      <--! Formular absenden -->
       <div class="container-contact100-form-btn">
         <div class="wrap-contact100-form-btn">
           <div class="contact100-form-bgbtn"></div>
