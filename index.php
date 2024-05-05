@@ -233,8 +233,8 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
 
       <!-- Vorstellungsfilm -->
       <div class="wrap-input100 validate-input">
-        <span class="label-input100">Vorstellungsfilm: <a href="https://www.youtube.com">YouTube</a>, <a href="https://www.vimeo.com">Vimeo</a> oder ähnlich</span>
-        <input class="input100" type="url" name="video" placeholder="Link zu YouTube, Vimeo oder ähnlich" required>
+        <span class="label-input100">Vorstellungsfilm: <a href="https://www.youtube.com">YouTube</a>, <a href="https://www.vimeo.com">Vimeo</a> oder ähnliches</span>
+        <input class="input100" type="url" name="video" placeholder="Link zu YouTube, Vimeo oder ähnliches" required>
         <span class="focus-input100"></span>
       </div>
       <div class="hinweis">Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</div>
