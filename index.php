@@ -106,7 +106,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <div>Hinweis: Nur in dieser Altersklasse wird das Stipendium vergeben.</div>
+      <div class="hinweis">Hinweis: Nur in dieser Altersklasse wird das Stipendium vergeben.</div>
 
       <!-- Staatsbürgerschaft -->
       <div class="wrap-input100 input100-select">
@@ -188,7 +188,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
       </div>
 
       <!-- Bewerbungsschreiben -->
-      <div class="wrap-input100 input100-select">
+      <div class="">
         <span class="label-input100">Bewerbungsschreiben</span>
         <div class="upload-box">
           <input type="file" class="file-input" name="file_cover_letter" required>
@@ -196,10 +196,10 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <div>Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
+      <div class="hinweis">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
 
       <!-- Lebenslauf -->
-      <div class="wrap-input100 input100-select">
+      <div class="">
         <span class="label-input100">Lebenslauf</span>
         <div class="upload-box">
           <input type="file" class="file-input" name="file_resume" required>
@@ -207,10 +207,10 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <div>Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
+      <div class="hinweis">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
 
       <!-- Empfehlungsschreiben -->
-      <div class="wrap-input100 input100-select">
+      <div class="">
         <span class="label-input100">Empfehlungsschreiben</span>
         <div class="upload-box">
           <input type="file" class="file-input" name="file_recommendations" required>
@@ -218,10 +218,10 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <div>Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
+      <div class="hinweis">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
 
       <!-- Programm im Falle eines Vorspiels in Wetzlar -->
-      <div class="wrap-input100 input100-select">
+      <div class="">
         <span class="label-input100">Programm im Falle eines Vorspiels in Wetzlar</span>
         <div class="upload-box">
           <input type="file" class="file-input" name="file_program" required>
@@ -229,7 +229,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         </div>
         <span class="focus-input100"></span>
       </div>
-      <div>Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
+      <div class="hinweis">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
 
       <!-- Vorstellungsfilm -->
       <div class="wrap-input100 validate-input">
@@ -237,7 +237,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
         <input class="input100" type="url" name="video" placeholder="Link zu YouTube, Vimeo, Dailymotion oder ähnlich" required>
         <span class="focus-input100"></span>
       </div>
-      <div>Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</div>
+      <div class="hinweis">Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</div>
 
       <!-- Formular absenden -->
       <div class="container-contact100-form-btn">
