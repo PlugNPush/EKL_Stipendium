@@ -403,7 +403,7 @@ echo '
         <p>Viel Glück bei Ihrer Bewerbung!</p>
         <br><h4><a href=index.php>Zurück zur Startseite</a></h4>';
 
-        $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, gender, age, citizenship, citizenship2, instrument, school, edu_level, video, cover_letter, resume, recommendations, program, comments) VALUES(:email, :name, :surname, :gender, :age, :citizenship, :citizenship2, :instrument, :school, :edu_level, :video, :cover_letter, :resume, :recommendations, :program, :comments)');
+        $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, gender, age, citizenship, citizenship2, instrument, edu_university, edu_level, video_url, cover_letter_url, resume_url, recommendations_url, program_url, comments) VALUES(:email, :name, :surname, :gender, :age, :citizenship, :citizenship2, :instrument, :edu_university, :edu_level, :video_url, :cover_letter_url, :resume_url, :recommendations_url, :program_url, :comments)');
 
         $cover_letter = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
@@ -454,13 +454,13 @@ echo '
           'citizenship' => $_POST['citizenship'],
           'citizenship2' => $_POST['citizenship2'],
           'instrument' => $_POST['instrument'],
-          'school' => $_POST['school'],
+          'edu_university' => $_POST['school'],
           'edu_level' => $_POST['edu_level'],
-          'video' => $_POST['video'],
-          'cover_letter' => $cover_letter,
-          'resume' => $resume,
-          'recommendations' => $recommendations,
-          'program' => $program,
+          'video_url' => $_POST['video'],
+          'cover_letter_url' => $cover_letter,
+          'resume_url' => $resume,
+          'recommendations_url' => $recommendations,
+          'program_url' => $program,
           'comments' => $_POST['comments']
         ));
 
