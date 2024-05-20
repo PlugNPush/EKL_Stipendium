@@ -369,9 +369,12 @@ echo '
 
         $cover_letter = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
+        $target_dir = "../uploads/" . md5($_POST['email']) . '/';
+        if (!file_exists($target_dir)){
+          mkdir($target_dir);
+        }
+
         if (isset($_FILES['file_cover_letter'])){
-          // Save the file to ../uploads/
-          $target_dir = "../uploads/" . md5($_POST['email']) . '/';
           $target_file = $target_dir . basename($_FILES["file_cover_letter"]["name"]);
           move_uploaded_file($_FILES["file_cover_letter"]["tmp_name"], $target_file);
           $cover_letter = $cover_letter . basename($_FILES["file_cover_letter"]["name"]);
@@ -380,8 +383,6 @@ echo '
         $resume = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
         if (isset($_FILES['file_resume'])){
-          // Save the file to ../uploads/
-          $target_dir = "../uploads/" . md5($_POST['email']) . '/';
           $target_file = $target_dir . basename($_FILES["file_resume"]["name"]);
           move_uploaded_file($_FILES["file_resume"]["tmp_name"], $target_file);
           $resume = $resume . basename($_FILES["file_resume"]["name"]);
@@ -390,8 +391,6 @@ echo '
         $recommendations = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
         if (isset($_FILES['file_recommendations'])){
-          // Save the file to ../uploads/
-          $target_dir = "../uploads/" . md5($_POST['email']) . '/';
           $target_file = $target_dir . basename($_FILES["file_recommendations"]["name"]);
           move_uploaded_file($_FILES["file_recommendations"]["tmp_name"], $target_file);
           $recommendations = $recommendations . basename($_FILES["file_recommendations"]["name"]);
@@ -400,8 +399,6 @@ echo '
         $program = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
         if (isset($_FILES['file_program'])){
-          // Save the file to ../uploads/
-          $target_dir = "../uploads/" . md5($_POST['email']) . '/';
           $target_file = $target_dir . basename($_FILES["file_program"]["name"]);
           move_uploaded_file($_FILES["file_program"]["tmp_name"], $target_file);
           $program = $program . basename($_FILES["file_program"]["name"]);
@@ -437,7 +434,7 @@ echo '
         $mail->Password = getEKLMailPassword();
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
+        $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kuehn-Leitz Stipendium');
         $mail->addAddress($_POST['email'], $_POST['firstname'] . ' ' . $_POST['lastname']);
         $mail->isHTML(true);
         $mail->Subject = 'Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium';
