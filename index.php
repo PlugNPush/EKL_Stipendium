@@ -91,7 +91,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
 
   	<div class="container-contact100">
   		<div class="wrap-contact100">
-      <form class="contact100-form validate-form" action="/" method="post">
+      <form class="contact100-form validate-form" action="/" method="post" enctype="multipart/form-data">
       <a href="https://www.elsie-kuehn-leitz-stipendium.de"><span class="contact100-form-title">
         Elsie Kühn-Leitz Stipendium Bewerbungs&shy;formular
       </span></a>
