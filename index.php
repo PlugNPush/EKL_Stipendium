@@ -252,6 +252,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
         <span class="label-input100">Kommentar</span>
         <textarea class="input100" name="comments" placeholder="Kommentar"></textarea>
         <span class="focus-input100"></span>
+      </div>
 
       <!-- Formular absenden -->
       <div class="container-contact100-form-btn">
@@ -431,10 +432,10 @@ echo '
         /*
         $mail = new PHPMailer(true);
         $mail->isSMTP();
-        $mail->Host = getMailHost();
+        $mail->Host = getEKLMailHost();
         $mail->SMTPAuth = true;
-        $mail->Username = getMailUsername();
-        $mail->Password = getMailPassword();
+        $mail->Username = getEKLMailUsername();
+        $mail->Password = getEKLMailPassword();
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
         $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
