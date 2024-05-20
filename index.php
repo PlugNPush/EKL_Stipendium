@@ -1,6 +1,14 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
+
 require_once dirname(__FILE__).'/../../config/config.php';
+require_once dirname(__FILE__).'/../../config/ekl_config.php';
   try {
     $bdd = new PDO('mysql:host='.getDBHost().';dbname=EKL_Stipendium', getDBUsername(), getDBPassword(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));
   } catch(Exception $e) {
@@ -9,7 +17,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
   // Démarrage de la session
   session_start();
 
-if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['proof']) || $_GET['proof'] == "")){
+if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["school"]) || !isset($_POST["edu_level"]) || !isset($_POST["video"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"])) {
   echo '<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -45,7 +53,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
 
   	<div class="container-contact100">
   		<div class="wrap-contact100">
-      <form class="contact100-form validate-form">
+      <form class="contact100-form validate-form" method="post">
       <a href="https://www.elsie-kuehn-leitz-stipendium.de"><span class="contact100-form-title">
         Elsie Kühn-Leitz Stipendium Bewerbungs&shy;formular
       </span></a>
@@ -239,6 +247,12 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
       </div>
       <div class="hinweis">Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</div>
 
+      <!-- Kommentar -->
+      <div class="wrap-input100 validate-input">
+        <span class="label-input100">Kommentar</span>
+        <textarea class="input100" name="comments" placeholder="Kommentar"></textarea>
+        <span class="focus-input100"></span>
+
       <!-- Formular absenden -->
       <div class="container-contact100-form-btn">
         <div class="wrap-contact100-form-btn">
@@ -302,7 +316,7 @@ if ((!isset($_GET['username']) || $_GET['username'] == "") && (!isset($_GET['pro
  ';
 }
 
-else{
+else {
   echo '<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -332,138 +346,110 @@ else{
   </head>
   <body>';
 
-  $req = $bdd->prepare('INSERT INTO requests(user, date) VALUES(:user, :date)');
-  //$req->execute(array($_GET['username']));
-  $select = $bdd->prepare('SELECT * FROM requests WHERE user = ?');
-  $select->execute(array(str_replace("@", "", $_GET['username'])));
+  $select = $bdd->prepare('SELECT * FROM candidates WHERE email = ?');
+  $select->execute(array($_GET['username']));
   $test = $select->fetch();
 
-  $sel = $bdd->prepare('SELECT * FROM licences WHERE user = ?');
-  $sel->execute(array(str_replace("@", "", $_GET['username'])));
-  $test2 = $sel->fetch();
-
-  $att = $bdd->prepare('UPDATE requests SET attempts = ? WHERE user = ?');
-
-  if (isset($test2['id'])){
+  if (isset($test['id'])){
     echo '<div class="container-contact100">
       <div class="wrap-contact100">
-        <h1>Licence déjà enregistrée.</h1>
-        <p>Votre licence a déjà été signée. Rendez-vous sur la page d\'accueil pour la consulter.</p>
-        <br><h4><a href=index.php>Vérifier le statut de la licence</a></h4>';
-  }
-
-  else if (isset($test['id'])){
-    if ($test['attempts'] >= 5 && $test['status'] != "banned"){
-      $ban = $bdd->prepare('UPDATE requests SET status = ? WHERE user = ?');
-      $ban->execute(array("banned", str_replace("@", "", $_GET['username'])));
-    }
-
-    if ($test['status'] == "banned"){
-      echo '<div class="container-contact100">
-        <div class="wrap-contact100">
-          <h1>Utilisateur banni.</h1>
-          <p>Suite à un nombre trop élevé de demandes, vous avez été banni du AirPods FC de manière définitive. Aucune licence ne vous sera attribuée.<br><b>On vous avait pourtant prévenu... Vous avez délibérément enfreint le réglement du AirPods FC en plus de générer du trafic inutile contraire au positionnement écologique d\'Apple. Vous ne méritez donc pas votre licence.</b></p>
-          <br><h4><a href=index.php>Retour à l\'accueil</a></h4>';
-    }
-      else{
-        $att->execute(array($test['attempts'] + 1, str_replace("@", "", $_GET['username'])));
-        echo '<div class="container-contact100">
-      		<div class="wrap-contact100">
-      			<h1>Demande déjà en cours...</h1>
-            <p>Une demande pour cet utilisateur est déjà en attente. Veuillez ne pas re-demander la signature de la licence. En cas de non-signature après 72h, contactez les administrateurs.<br><b>IMPORTANT : NE RAFRAICHISSEZ PAS CETTE PAGE. POUR CONSULTER VOTRE LICENCE, UTILISEZ LE LIEN CI-DESSOUS.</b></p>
-            <br><h4><a href=index.php>Vérifier le statut de la licence</a></h4>';
-      }
-
+        <h1>Sie haben bereits eine Bewerbung eingereicht.</h1>
+        <p>Bitte warten Sie auf die Antwort des Stipendiums und reichen Sie keine weiteren Bewerbungen ein. Vielen Dank.</p>
+        <br><h4><a href=index.php>Zurück zur Startseite</a></h4>';
   } else {
 echo '
   	<div class="container-contact100">
   		<div class="wrap-contact100">
-  			<h1>Demande en attente de validation...</h1>
-        <p>Veullez patienter jusqu\'à 72h qu\'un administrateur du AirPods FC signe votre licence. Afin de ne pas ralentir le processus de validation des autres licences, veuillez ne pas re-soumettre votre demande avant un délai de 72h. Merci.<br><b>IMPORTANT : NE RAFRAICHISSEZ PAS CETTE PAGE. POUR CONSULTER VOTRE LICENCE, UTILISEZ LE LIEN CI-DESSOUS.</b></p>
-        <br><h4><a href=index.php>Vérifier le statut de la licence</a></h4>';
-$date = date('Y-m-d H:i:s');
-$req->execute(array(
-'user' => str_replace("@", "", $_GET['username']),
-'date' => $date
-));
+  			<h1>Ihre Bewerbung wurde erfolgreich eingereicht.</h1>
+        <p>Viel Glück bei Ihrer Bewerbung!</p>
+        <br><h4><a href=index.php>Zurück zur Startseite</a></h4>';
 
-        $to  = 'fcairpods@gmail.com'; // notez la virgule
+        $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, gender, age, citizenship, citizenship2, instrument, school, edu_level, video, cover_letter, resume, recommendations, program, comments) VALUES(:email, :name, :surname, :gender, :age, :citizenship, :citizenship2, :instrument, :school, :edu_level, :video, :cover_letter, :resume, :recommendations, :program, :comments)');
 
-     // Sujet
-     $subject = 'Demande de licence AirPods FC';
+        $cover_letter = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
-     $user = str_replace("@", "", $_GET['username']);
-     $type = 'undefined';
-     if (strcasecmp($_GET['number'], 'Basique') == 0) {
-       $type = 'basic';
-     }
-     else if (strcasecmp($_GET['number'], 'VIP') == 0) {
-       $type = 'vip';
-     }
-     else if (strcasecmp($_GET['number'], 'RED') == 0){
-       $type = 'red';
-     }
+        if (isset($_FILES['file_cover_letter'])){
+          // Save the file to ../uploads/
+          $target_dir = "../uploads/";
+          $target_file = $target_dir . basename($_FILES["file_cover_letter"]["name"]);
+          move_uploaded_file($_FILES["file_cover_letter"]["tmp_name"], $target_file);
+          $cover_letter = $cover_letter . basename($_FILES["file_cover_letter"]["name"]);
+        }
 
-     // message
+        $resume = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
+        if (isset($_FILES['file_resume'])){
+          // Save the file to ../uploads/
+          $target_dir = "../uploads/";
+          $target_file = $target_dir . basename($_FILES["file_resume"]["name"]);
+          move_uploaded_file($_FILES["file_resume"]["tmp_name"], $target_file);
+          $resume = $resume . basename($_FILES["file_resume"]["name"]);
+        }
 
+        $recommendations = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
+        if (isset($_FILES['file_recommendations'])){
+          // Save the file to ../uploads/
+          $target_dir = "../uploads/";
+          $target_file = $target_dir . basename($_FILES["file_recommendations"]["name"]);
+          move_uploaded_file($_FILES["file_recommendations"]["tmp_name"], $target_file);
+          $recommendations = $recommendations . basename($_FILES["file_recommendations"]["name"]);
+        }
 
-       if ($type != 'undefined' && $_GET['date'] != ''){
-         $message = '
-         <html>
-          <body>
-           <h1>Une demande d\'Immatriculation de licence est en attente.</h1>
-           <p>Nom d\'utilisateur Twitter:</p>
-           <h4>@' . $user . '</h4>
-           <br>
-           <p>Type de licence demandee:</p>
-           <h4>' . $type . '</h4>
-           <p>Preuve d\'achat</p><br>
-           <img src=' . $_GET['proof'] . '><br><p>' . $_GET['proof'] . '</p>
-           <p>Date d\'achat indiquee:</p>
-           <h4>' . $_GET['date'] . '</h4>
-         <h3><a href="https://admin.airpodsfc.fr/pages/forms/fastsign.php?username2C=' . $user . '&type=' . $type . '&date=' . $_GET['date'] . '">Valider avec FASTSIGN</a></h3>
-         <h3><a href="https://admin.airpodsfc.fr/pages/forms/create.php">Si une erreur est presente, validez manuellement la licence ici</a></h3>
-         <h4>ALPHA - RAPPORT D\'ANALYSE AUTOMATIQUE PDF</h4>
-         <p>' . $_GET['filepond'] . '</p>
-        </body>
-       </html>
-       ';
-     } else {
-       $message = '
-       <html>
-        <body>
-        <h1>Une demande d\'Immatriculation de licence est en attente.</h1>
-        <p>Nom d\'utilisateur Twitter:</p>
-        <h4>' . $_GET['username'] . '</h4>
-        <br>
-        <p>Type de licence demandee:</p>
-        <h4>' . $_GET['number'] . '</h4>
-        <p>Preuve d\'achat</p><br>
-         <img src=' . $_GET['proof'] . '><br><p>' . $_GET['proof'] . '</p>
-         <p>Date d\'achat indiquee:</p>
-         <h4>' . $_GET['date'] . '</h4>
-       <h3><a href="https://admin.airpodsfc.fr/pages/forms/create.php">FASTSIGN indisponible, validez manuellement la licence</a></h3>
-       <h2>ALPHA - RAPPORT D\'ANALYSE AUTOMATIQUE PDF</h2>
-       <p>' . $_GET['filepond'] . '</p>
-      </body>
-     </html>
-     ';
-     }
+        $program = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
+        if (isset($_FILES['file_program'])){
+          // Save the file to ../uploads/
+          $target_dir = "../uploads/";
+          $target_file = $target_dir . basename($_FILES["file_program"]["name"]);
+          move_uploaded_file($_FILES["file_program"]["tmp_name"], $target_file);
+          $program = $program . basename($_FILES["file_program"]["name"]);
+        }
 
-     // Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
-     $headers[] = 'MIME-Version: 1.0';
-     $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+        $query->execute(array(
+          'email' => $_POST['email'],
+          'name' => $_POST['lastname'],
+          'surname' => $_POST['firstname'],
+          'gender' => $_POST['gender'],
+          'age' => $_POST['age'],
+          'citizenship' => $_POST['citizenship'],
+          'citizenship2' => $_POST['citizenship2'],
+          'instrument' => $_POST['instrument'],
+          'school' => $_POST['school'],
+          'edu_level' => $_POST['edu_level'],
+          'video' => $_POST['video'],
+          'cover_letter' => $cover_letter,
+          'resume' => $resume,
+          'recommendations' => $recommendations,
+          'program' => $program,
+          'comments' => $_POST['comments']
+        ));
 
-     // En-têtes additionnels
-     $headers[] = 'To: AirPods FC<fcairpods@gmail.com>';
-     $headers[] = 'From: Systeme AirPods FC <noreply@airpodsfc.fr>';
+        // Send an email to the candidate
+        // PHPMailer
 
-     // Envoi
-     mail($to, $subject, $message, implode("\r\n", $headers));
-}
+        /*
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host = getMailHost();
+        $mail->SMTPAuth = true;
+        $mail->Username = getMailUsername();
+        $mail->Password = getMailPassword();
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
+        $mail->addAddress($_POST['email'], $_POST['firstname'] . ' ' . $_POST['lastname']);
+        $mail->isHTML(true);
+        $mail->Subject = 'Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium';
+        $mail->Body = 'Sehr geehrte/r ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ',<br><br>
+        wir haben Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium erhalten. Vielen Dank für Ihre Bewerbung.<br><br>
+        Mit freundlichen Grüßen,<br>
+        Das Elsie Kühn-Leitz Stipendium';
+        $mail->send();
+        */
+
+      }
+
         echo '
 
   		</div>
