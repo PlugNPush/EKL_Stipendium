@@ -51,6 +51,8 @@ echo $_FILES['file_recommendations'] ?? "file_recommendations not set";
 echo "<br>";
 echo $_FILES['file_program'] ?? "file_program not set";
 echo "<br>";
+var_dump($_FILES);
+echo "<br>";
 echo "==== END DEBUG ====";
 
 if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["school"]) || !isset($_POST["edu_level"]) || !isset($_POST["video"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"])) {
