@@ -17,6 +17,25 @@ require_once dirname(__FILE__).'/../../config/ekl_config.php';
   // Démarrage de la session
   session_start();
 
+echo("==== DEBUG ====");
+echo $_POST['email'];
+echo $_POST['lastname'];
+echo $_POST['firstname'];
+echo $_POST['gender'];
+echo $_POST['age'];
+echo $_POST['citizenship'];
+echo $_POST['citizenship2'];
+echo $_POST['instrument'];
+echo $_POST['school'];
+echo $_POST['edu_level'];
+echo $_POST['video'];
+echo $_POST['comments'];
+echo $_FILES['file_cover_letter'];
+echo $_FILES['file_resume'];
+echo $_FILES['file_recommendations'];
+echo $_FILES['file_program'];
+echo "==== END DEBUG ====";
+
 if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["school"]) || !isset($_POST["edu_level"]) || !isset($_POST["video"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"])) {
   echo '<!DOCTYPE html>
   <html lang="en">
@@ -53,7 +72,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
 
   	<div class="container-contact100">
   		<div class="wrap-contact100">
-      <form class="contact100-form validate-form" method="post">
+      <form class="contact100-form validate-form" action="/" method="post">
       <a href="https://www.elsie-kuehn-leitz-stipendium.de"><span class="contact100-form-title">
         Elsie Kühn-Leitz Stipendium Bewerbungs&shy;formular
       </span></a>
