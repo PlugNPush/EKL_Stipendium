@@ -17,44 +17,6 @@ require_once dirname(__FILE__).'/../../config/ekl_config.php';
   // Démarrage de la session
   session_start();
 
-echo("==== DEBUG ====");
-echo "<br>";
-echo $_POST['email'] ?? "email not set";
-echo "<br>";
-echo $_POST['lastname'] ?? "lastname not set";
-echo "<br>";
-echo $_POST['firstname'] ?? "firstname not set";
-echo "<br>";
-echo $_POST['gender'] ?? "gender not set";
-echo "<br>";
-echo $_POST['age'] ?? "age not set";
-echo "<br>";
-echo $_POST['citizenship'] ?? "citizenship not set";
-echo "<br>";
-echo $_POST['citizenship2'] ?? "citizenship2 not set";
-echo "<br>";
-echo $_POST['instrument'] ?? "instrument not set";
-echo "<br>";
-echo $_POST['school'] ?? "school not set";
-echo "<br>";
-echo $_POST['edu_level'] ?? "edu_level not set";
-echo "<br>";
-echo $_POST['video'] ?? "video not set";
-echo "<br>";
-echo $_POST['comments'] ?? "comments not set";
-echo "<br>";
-echo $_FILES['file_cover_letter'] ?? "file_cover_letter not set";
-echo "<br>";
-echo $_FILES['file_resume'] ?? "file_resume not set";
-echo "<br>";
-echo $_FILES['file_recommendations'] ?? "file_recommendations not set";
-echo "<br>";
-echo $_FILES['file_program'] ?? "file_program not set";
-echo "<br>";
-var_dump($_FILES);
-echo "<br>";
-echo "==== END DEBUG ====";
-
 if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["school"]) || !isset($_POST["edu_level"]) || !isset($_POST["video"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"])) {
   echo '<!DOCTYPE html>
   <html lang="en">
@@ -386,7 +348,7 @@ else {
   <body>';
 
   $select = $bdd->prepare('SELECT * FROM candidates WHERE email = ?');
-  $select->execute(array($_GET['username']));
+  $select->execute(array($_POST['email']));
   $test = $select->fetch();
 
   if (isset($test['id'])){
@@ -409,7 +371,7 @@ echo '
 
         if (isset($_FILES['file_cover_letter'])){
           // Save the file to ../uploads/
-          $target_dir = "../uploads/";
+          $target_dir = "../uploads/" . md5($_POST['email']) . '/';
           $target_file = $target_dir . basename($_FILES["file_cover_letter"]["name"]);
           move_uploaded_file($_FILES["file_cover_letter"]["tmp_name"], $target_file);
           $cover_letter = $cover_letter . basename($_FILES["file_cover_letter"]["name"]);
@@ -419,7 +381,7 @@ echo '
 
         if (isset($_FILES['file_resume'])){
           // Save the file to ../uploads/
-          $target_dir = "../uploads/";
+          $target_dir = "../uploads/" . md5($_POST['email']) . '/';
           $target_file = $target_dir . basename($_FILES["file_resume"]["name"]);
           move_uploaded_file($_FILES["file_resume"]["tmp_name"], $target_file);
           $resume = $resume . basename($_FILES["file_resume"]["name"]);
@@ -429,7 +391,7 @@ echo '
 
         if (isset($_FILES['file_recommendations'])){
           // Save the file to ../uploads/
-          $target_dir = "../uploads/";
+          $target_dir = "../uploads/" . md5($_POST['email']) . '/';
           $target_file = $target_dir . basename($_FILES["file_recommendations"]["name"]);
           move_uploaded_file($_FILES["file_recommendations"]["tmp_name"], $target_file);
           $recommendations = $recommendations . basename($_FILES["file_recommendations"]["name"]);
@@ -439,7 +401,7 @@ echo '
 
         if (isset($_FILES['file_program'])){
           // Save the file to ../uploads/
-          $target_dir = "../uploads/";
+          $target_dir = "../uploads/" . md5($_POST['email']) . '/';
           $target_file = $target_dir . basename($_FILES["file_program"]["name"]);
           move_uploaded_file($_FILES["file_program"]["tmp_name"], $target_file);
           $program = $program . basename($_FILES["file_program"]["name"]);
@@ -467,7 +429,6 @@ echo '
         // Send an email to the candidate
         // PHPMailer
 
-        /*
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->Host = getEKLMailHost();
@@ -485,7 +446,6 @@ echo '
         Mit freundlichen Grüßen,<br>
         Das Elsie Kühn-Leitz Stipendium';
         $mail->send();
-        */
 
       }
 
