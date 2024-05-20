@@ -199,7 +199,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       <div class="">
         <span class="label-input100">Bewerbungsschreiben</span>
         <div class="upload-box">
-          <input type="file" class="file-input" name="file_cover_letter" required>
+          <input type="file" class="file-input" name="file_cover_letter" required accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf">
           <label for="file_cover_letter"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
         </div>
         <span class="focus-input100"></span>
@@ -210,7 +210,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       <div class="">
         <span class="label-input100">Lebenslauf</span>
         <div class="upload-box">
-          <input type="file" class="file-input" name="file_resume" required>
+          <input type="file" class="file-input" name="file_resume" required accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf">
           <label for="file_resume"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
         </div>
         <span class="focus-input100"></span>
@@ -221,7 +221,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       <div class="">
         <span class="label-input100">Empfehlungsschreiben</span>
         <div class="upload-box">
-          <input type="file" class="file-input" name="file_recommendations" required>
+          <input type="file" class="file-input" name="file_recommendations" required accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf">
           <label for="file_recommendations"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
         </div>
         <span class="focus-input100"></span>
@@ -232,7 +232,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       <div class="">
         <span class="label-input100">Programm im Falle eines Vorspiels in Wetzlar</span>
         <div class="upload-box">
-          <input type="file" class="file-input" name="file_program" required>
+          <input type="file" class="file-input" name="file_program" required accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf">
           <label for="file_program"><span class="file-icon"><i class="fa fa-upload"></i></span> Wählen Sie eine Datei aus oder ziehen Sie sie hierher</label>
         </div>
         <span class="focus-input100"></span>
@@ -367,7 +367,7 @@ echo '
 
         $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, gender, age, citizenship, citizenship2, instrument, edu_university, edu_level, video_url, cover_letter_url, resume_url, recommendations_url, program_url, comments) VALUES(:email, :name, :surname, :gender, :age, :citizenship, :citizenship2, :instrument, :edu_university, :edu_level, :video_url, :cover_letter_url, :resume_url, :recommendations_url, :program_url, :comments)');
 
-        $cover_letter = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
+        $cover_letter = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
 
         $target_dir = "../uploads/" . md5($_POST['email']) . '/';
         if (!file_exists($target_dir)){
