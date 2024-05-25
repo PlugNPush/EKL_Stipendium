@@ -273,7 +273,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
 
     <footer>
       <p><center>Diese Website ist ehrenamtlich von der <a href="https://www.groupe-minaste.org">Groupe MINASTE</a> gehostet.</center></p>
-      <p><center>Betreiber: Wetzlarer Kulturgemeinschaft e.V. – Postfach 2945, 35539 Wetzlar – www.wetzlarer-kulturgemeinschaft.de – Impressum – Datenschutz<center></p>
+      <p><center>Betreiber: Wetzlarer Kulturgemeinschaft e.V. – Postfach 2945, 35539 Wetzlar – <a href="https://wetzlarer-kulturgemeinschaft.de">www.wetzlarer-kulturgemeinschaft.de</a> – <a href="https://www.elsie-kuehn-leitz-stipendium.de/impressum/">Impressum</a> – <a href="https://www.elsie-kuehn-leitz-stipendium.de/privacy-policy/">Datenschutz</a><center></p>
     </footer>
 
   	<div id="dropDownSelect1"></div>
@@ -452,7 +452,7 @@ echo '
   	</div>
     <footer>
       <p><center>Diese Website ist ehrenamtlich von der <a href="https://www.groupe-minaste.org">Groupe MINASTE</a> gehostet.</center></p>
-      <p><center>Betreiber: Wetzlarer Kulturgemeinschaft e.V. – Postfach 2945, 35539 Wetzlar – www.wetzlarer-kulturgemeinschaft.de – Impressum – Datenschutz<center></p>
+      <p><center>Betreiber: Wetzlarer Kulturgemeinschaft e.V. – Postfach 2945, 35539 Wetzlar – <a href="https://wetzlarer-kulturgemeinschaft.de">www.wetzlarer-kulturgemeinschaft.de</a> – <a href="https://www.elsie-kuehn-leitz-stipendium.de/impressum/">Impressum</a> – <a href="https://www.elsie-kuehn-leitz-stipendium.de/privacy-policy/">Datenschutz</a><center></p>
     </footer>
 
 
