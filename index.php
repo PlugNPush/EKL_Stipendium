@@ -267,7 +267,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
         </div>
       </div>
     </form>
-        <br><h4><center><span onclick="abortConfirm()">Formular verlassen</span></center></h4>
+        <br><a><center><span onclick="abortConfirm()">Formular verlassen</span></center></a>
   		</div>
   	</div>
 
@@ -281,14 +281,20 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
     <script>
     function abortConfirm() {
       if (confirm("Sind Sie sicher, dass Sie das Formular verlassen möchten? Ihre Daten werden nicht gespeichert.")) {
+        removeEventListener("beforeunload", beforeUnloadHandler);
         window.location.href = "https://www.elsie-kuehn-leitz-stipendium.de";
       }
     }
 
-    addEventListener("beforeunload", function (event) {
+    const beforeUnloadHandler = (event) => {
+      // Recommended
       event.preventDefault();
+
+      // Included for legacy support, e.g. Chrome/Edge < 119
       event.returnValue = true;
-    });
+    };
+
+    addEventListener("beforeunload", beforeUnloadHandler);
     </script>
 
   <!--===============================================================================================-->
