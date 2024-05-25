@@ -17,7 +17,7 @@ require_once dirname(__FILE__).'/../../config/ekl_config.php';
   // Démarrage de la session
   session_start();
 
-if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["school"]) || !isset($_POST["edu_level"]) || !isset($_POST["video"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"])) {
+if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["edu_university"]) || !isset($_POST["edu_level"]) || !isset($_POST["video_url"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"])) {
   echo '<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -173,7 +173,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       <!-- Musikhochschule -->
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Bitte geben Sie Ihre Musikhochschule ein</span>
-        <input class="input100" type="text" name="school" placeholder="Musikhochschule" required>
+        <input class="input100" type="text" name="edu_university" placeholder="Musikhochschule" required>
         <span class="focus-input100"></span>
       </div>
 
@@ -242,7 +242,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       <!-- Vorstellungsfilm -->
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Vorstellungsfilm: <a target="_blank" href="https://www.youtube.com">YouTube</a>, <a target="_blank" href="https://www.vimeo.com">Vimeo</a> oder ähnliches</span>
-        <input class="input100" type="url" name="video" placeholder="Link zu YouTube, Vimeo oder ähnliches" required>
+        <input class="input100" type="url" name="video_url" placeholder="Link zu YouTube, Vimeo oder ähnliches" required>
         <span class="focus-input100"></span>
       </div>
       <div class="hinweis">Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</div>
@@ -386,7 +386,7 @@ echo '
 
         $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, gender, age, citizenship, citizenship2, instrument, edu_university, edu_level, video_url, cover_letter_url, resume_url, recommendations_url, program_url, comments) VALUES(:email, :name, :surname, :gender, :age, :citizenship, :citizenship2, :instrument, :edu_university, :edu_level, :video_url, :cover_letter_url, :resume_url, :recommendations_url, :program_url, :comments)');
 
-        $cover_letter = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
+        $cover_letter_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
 
         $target_dir = "../uploads/" . md5($_POST['email']) . '/';
         if (!file_exists($target_dir)){
@@ -399,28 +399,28 @@ echo '
           $cover_letter = $cover_letter . basename($_FILES["file_cover_letter"]["name"]);
         }
 
-        $resume = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
+        $resume_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
         if (isset($_FILES['file_resume'])){
           $target_file = $target_dir . basename($_FILES["file_resume"]["name"]);
           move_uploaded_file($_FILES["file_resume"]["tmp_name"], $target_file);
-          $resume = $resume . basename($_FILES["file_resume"]["name"]);
+          $resume_url = $resume_url . basename($_FILES["file_resume"]["name"]);
         }
 
-        $recommendations = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
+        $recommendations_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
         if (isset($_FILES['file_recommendations'])){
           $target_file = $target_dir . basename($_FILES["file_recommendations"]["name"]);
           move_uploaded_file($_FILES["file_recommendations"]["tmp_name"], $target_file);
-          $recommendations = $recommendations . basename($_FILES["file_recommendations"]["name"]);
+          $recommendations_url = $recommendations_url . basename($_FILES["file_recommendations"]["name"]);
         }
 
-        $program = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
+        $program_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
         if (isset($_FILES['file_program'])){
           $target_file = $target_dir . basename($_FILES["file_program"]["name"]);
           move_uploaded_file($_FILES["file_program"]["tmp_name"], $target_file);
-          $program = $program . basename($_FILES["file_program"]["name"]);
+          $program_url = $program_url . basename($_FILES["file_program"]["name"]);
         }
 
         $query->execute(array(
@@ -432,13 +432,13 @@ echo '
           'citizenship' => $_POST['citizenship'],
           'citizenship2' => intval($_POST['citizenship2']) == 0 ? NULL : $_POST['citizenship2'],
           'instrument' => $_POST['instrument'],
-          'edu_university' => $_POST['school'],
+          'edu_university' => $_POST['edu_university'],
           'edu_level' => $_POST['edu_level'],
-          'video_url' => $_POST['video'],
+          'video_url' => $_POST['video_url'],
           'cover_letter_url' => $cover_letter,
-          'resume_url' => $resume,
-          'recommendations_url' => $recommendations,
-          'program_url' => $program,
+          'resume_url' => $resume_url,
+          'recommendations_url' => $recommendations_url,
+          'program_url' => $program_url,
           'comments' => $_POST['comments']
         ));
 
@@ -463,7 +463,7 @@ echo '
         $mail->Body = 'Sehr geehrte/r ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ',<br><br>
         wir haben Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium erhalten. Vielen Dank für Ihre Bewerbung.<br><br>
         Mit freundlichen Grüßen,<br>
-        Das Elsie Kühn-Leitz Stipendium';
+        Die Auswahlkommission für das Elsie Kühn-Leitz Stipendium';
         $mail->send();
 
       }
