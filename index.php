@@ -241,7 +241,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
 
       <!-- Vorstellungsfilm -->
       <div class="wrap-input100 validate-input">
-        <span class="label-input100">Vorstellungsfilm: <a href="https://www.youtube.com">YouTube</a>, <a href="https://www.vimeo.com">Vimeo</a> oder ähnliches</span>
+        <span class="label-input100">Vorstellungsfilm: <a target="_blank" href="https://www.youtube.com">YouTube</a>, <a target="_blank" href="https://www.vimeo.com">Vimeo</a> oder ähnliches</span>
         <input class="input100" type="url" name="video" placeholder="Link zu YouTube, Vimeo oder ähnliches" required>
         <span class="focus-input100"></span>
       </div>
@@ -272,8 +272,8 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
   	</div>
 
     <footer>
-      <p><center>Diese Website ist ehrenamtlich von der <a href="https://www.groupe-minaste.org">Groupe MINASTE</a> gehostet.</center></p>
-      <p><center>Betreiber: Wetzlarer Kulturgemeinschaft e.V. – Postfach 2945, 35539 Wetzlar – <a href="https://wetzlarer-kulturgemeinschaft.de">www.wetzlarer-kulturgemeinschaft.de</a> – <a href="https://www.elsie-kuehn-leitz-stipendium.de/impressum/">Impressum</a> – <a href="https://www.elsie-kuehn-leitz-stipendium.de/privacy-policy/">Datenschutz</a><center></p>
+      <p><center>Diese Website ist ehrenamtlich von der <a target="_blank" href="https://www.groupe-minaste.org">Groupe MINASTE</a> gehostet.</center></p>
+      <p><center>Betreiber: Wetzlarer Kulturgemeinschaft e.V. – Postfach 2945, 35539 Wetzlar – <a target="_blank" href="https://wetzlarer-kulturgemeinschaft.de">www.wetzlarer-kulturgemeinschaft.de</a> – <a target="_blank" href="https://www.elsie-kuehn-leitz-stipendium.de/impressum/">Impressum</a> – <a target="_blank" href="https://www.elsie-kuehn-leitz-stipendium.de/privacy-policy/">Datenschutz</a><center></p>
     </footer>
 
   	<div id="dropDownSelect1"></div>
@@ -375,14 +375,14 @@ else {
       <div class="wrap-contact100">
         <h1>Sie haben bereits eine Bewerbung eingereicht.</h1>
         <p>Bitte warten Sie auf die Antwort des Stipendiums und reichen Sie keine weiteren Bewerbungen ein. Vielen Dank.</p>
-        <br><h4><a href=index.php>Zurück zur Startseite</a></h4>';
+        <br><h4><a href="https://www.elsie-kuehn-leitz-stipendium.de">Zurück zur Startseite</a></h4>';
   } else {
 echo '
   	<div class="container-contact100">
   		<div class="wrap-contact100">
   			<h1>Ihre Bewerbung wurde erfolgreich eingereicht.</h1>
         <p>Viel Glück bei Ihrer Bewerbung!</p>
-        <br><h4><a href=index.php>Zurück zur Startseite</a></h4>';
+        <br><h4><a href="https://www.elsie-kuehn-leitz-stipendium.de">Zurück zur Startseite</a></h4>';
 
         $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, gender, age, citizenship, citizenship2, instrument, edu_university, edu_level, video_url, cover_letter_url, resume_url, recommendations_url, program_url, comments) VALUES(:email, :name, :surname, :gender, :age, :citizenship, :citizenship2, :instrument, :edu_university, :edu_level, :video_url, :cover_letter_url, :resume_url, :recommendations_url, :program_url, :comments)');
 
@@ -470,8 +470,8 @@ echo '
   		</div>
   	</div>
     <footer>
-      <p><center>Diese Website ist ehrenamtlich von der <a href="https://www.groupe-minaste.org">Groupe MINASTE</a> gehostet.</center></p>
-      <p><center>Betreiber: Wetzlarer Kulturgemeinschaft e.V. – Postfach 2945, 35539 Wetzlar – <a href="https://wetzlarer-kulturgemeinschaft.de">www.wetzlarer-kulturgemeinschaft.de</a> – <a href="https://www.elsie-kuehn-leitz-stipendium.de/impressum/">Impressum</a> – <a href="https://www.elsie-kuehn-leitz-stipendium.de/privacy-policy/">Datenschutz</a><center></p>
+      <p><center>Diese Website ist ehrenamtlich von der <a target="_blank" href="https://www.groupe-minaste.org">Groupe MINASTE</a> gehostet.</center></p>
+      <p><center>Betreiber: Wetzlarer Kulturgemeinschaft e.V. – Postfach 2945, 35539 Wetzlar – <a target="_blank" href="https://wetzlarer-kulturgemeinschaft.de">www.wetzlarer-kulturgemeinschaft.de</a> – <a target="_blank" href="https://www.elsie-kuehn-leitz-stipendium.de/impressum/">Impressum</a> – <a target="_blank" href="https://www.elsie-kuehn-leitz-stipendium.de/privacy-policy/">Datenschutz</a><center></p>
     </footer>
 
 
