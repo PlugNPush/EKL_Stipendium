@@ -430,7 +430,7 @@ echo '
           'gender' => $_POST['gender'],
           'age' => $_POST['age'],
           'citizenship' => $_POST['citizenship'],
-          'citizenship2' => $_POST['citizenship2'],
+          'citizenship2' => intval($_POST['citizenship2']) == 0 ? NULL : $_POST['citizenship2'],
           'instrument' => $_POST['instrument'],
           'edu_university' => $_POST['school'],
           'edu_level' => $_POST['edu_level'],
