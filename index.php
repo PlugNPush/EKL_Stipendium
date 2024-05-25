@@ -54,9 +54,9 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
   	<div class="container-contact100">
   		<div class="wrap-contact100">
       <form class="contact100-form validate-form" action="/" method="post" enctype="multipart/form-data">
-      <a href="https://www.elsie-kuehn-leitz-stipendium.de"><span class="contact100-form-title">
+      <span class="contact100-form-title">
         Elsie Kühn-Leitz Stipendium Bewerbungs&shy;formular
-      </span></a>
+      </span>
 
       <!-- E-Mail-Adresse -->
       <div class="wrap-input100 validate-input">
@@ -267,7 +267,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
         </div>
       </div>
     </form>
-        <br><h4><center><a href=https://www.elsie-kuehn-leitz-stipendium.de>Formular aufgeben</a></center></h4>
+        <br><h4><center><span onclick="abortConfirm()">Formular verlassen</span></center></h4>
   		</div>
   	</div>
 
@@ -277,6 +277,19 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
     </footer>
 
   	<div id="dropDownSelect1"></div>
+
+    <script>
+    function abortConfirm() {
+      if (confirm("Sind Sie sicher, dass Sie das Formular verlassen möchten? Ihre Daten werden nicht gespeichert.")) {
+        window.location.href = "https://www.elsie-kuehn-leitz-stipendium.de";
+      }
+    }
+
+    addEventListener("beforeunload", function (event) {
+      event.preventDefault();
+      event.returnValue = true;
+    });
+    </script>
 
   <!--===============================================================================================-->
   	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
