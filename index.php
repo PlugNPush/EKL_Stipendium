@@ -267,7 +267,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
         </div>
       </div>
     </form>
-        <br><a href="#"><center><span onclick="abortConfirm()">Formular verlassen</span></center></a>
+        <br><a href="javascript:void(0)"><center><span onclick="abortConfirm()">Formular verlassen</span></center></a>
   		</div>
   	</div>
 
