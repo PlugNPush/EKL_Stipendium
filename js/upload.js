@@ -35,7 +35,12 @@ document.querySelectorAll('.file-input').forEach(input => {
     uploadBox.addEventListener('drop', function(e) {
         e.preventDefault();
         this.style.backgroundColor = '';
-        input.files = e.dataTransfer.files;
-        input.dispatchEvent(new Event('change')); // Trigger change event manually
+        // Check the file extension (.pdf or .doc or .docx)
+        if (e.dataTransfer.files[0].name.match(/\.(pdf|doc|docx)$/i)) {
+            input.files = e.dataTransfer.files;
+            input.dispatchEvent(new Event('change')); // Trigger change event manually
+        } else {
+            alert('Bitte nur PDF- oder Word-Dateien hochladen.');
+        }
     });
 });
