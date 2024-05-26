@@ -7,15 +7,15 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 require 'PHPMailer/src/Exception.php';
 
-require_once dirname(__FILE__).'/../../config/config.php';
-require_once dirname(__FILE__).'/../../config/ekl_config.php';
-  try {
-    $bdd = new PDO('mysql:host='.getDBHost().';dbname=EKL_Stipendium', getDBUsername(), getDBPassword(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));
-  } catch(Exception $e) {
-    exit ('Erreur while connecting to database: '.$e->getMessage());
-  }
-  // Démarrage de la session
-  session_start();
+require_once dirname(__FILE__) . '/../../config/config.php';
+require_once dirname(__FILE__) . '/../../config/ekl_config.php';
+try {
+  $bdd = new PDO('mysql:host=' . getDBHost() . ';dbname=EKL_Stipendium', getDBUsername(), getDBPassword(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));
+} catch (Exception $e) {
+  exit('Erreur while connecting to database: ' . $e->getMessage());
+}
+// Démarrage de la session
+session_start();
 
 if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["edu_university"]) || !isset($_POST["edu_level"]) || !isset($_POST["video_url"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"])) {
   echo '<!DOCTYPE html>
@@ -86,12 +86,12 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
           <select class="selection-2" name="gender" required>
             <option hidden disabled selected value> -- Bitte auswählen -- </option>';
 
-            $query = $bdd->query('SELECT * FROM genders');
-            while ($data = $query->fetch()){
-              echo '<option value="' . $data['id'] . '">' . $data['gender_name'] . '</option>';
-            }
+  $query = $bdd->query('SELECT * FROM genders');
+  while ($data = $query->fetch()) {
+    echo '<option value="' . $data['id'] . '">' . $data['gender_name'] . '</option>';
+  }
 
-            echo '
+  echo '
           </select>
         </div>
         <span class="focus-input100"></span>
@@ -104,12 +104,12 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
           <select class="selection-2" name="age" required>
             <option hidden disabled selected value> -- Bitte auswählen -- </option>';
 
-            $query = $bdd->query('SELECT * FROM ages');
-            while ($data = $query->fetch()){
-              echo '<option value="' . $data['id'] . '">' . $data['age'] . '</option>';
-            }
+  $query = $bdd->query('SELECT * FROM ages');
+  while ($data = $query->fetch()) {
+    echo '<option value="' . $data['id'] . '">' . $data['age'] . '</option>';
+  }
 
-            echo '
+  echo '
           </select>
         </div>
         <span class="focus-input100"></span>
@@ -123,12 +123,12 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
           <select class="selection-2" name="citizenship" required>
             <option hidden disabled selected value> -- Bitte auswählen -- </option>';
 
-            $query = $bdd->query('SELECT * FROM countries');
-            while ($data = $query->fetch()){
-              echo '<option value="' . $data['id'] . '">' . $data['country_name'] . '</option>';
-            }
+  $query = $bdd->query('SELECT * FROM countries');
+  while ($data = $query->fetch()) {
+    echo '<option value="' . $data['id'] . '">' . $data['country_name'] . '</option>';
+  }
 
-            echo '
+  echo '
           </select>
         </div>
         <span class="focus-input100"></span>
@@ -141,12 +141,12 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
           <select class="selection-2" name="citizenship2">
             <option selected value>Ohne zweite Staatsbürgerschaft</option>';
 
-            $query = $bdd->query('SELECT * FROM countries');
-            while ($data = $query->fetch()){
-              echo '<option value="' . $data['id'] . '">' . $data['country_name'] . '</option>';
-            }
+  $query = $bdd->query('SELECT * FROM countries');
+  while ($data = $query->fetch()) {
+    echo '<option value="' . $data['id'] . '">' . $data['country_name'] . '</option>';
+  }
 
-            echo '
+  echo '
           </select>
         </div>
         <span class="focus-input100"></span>
@@ -159,12 +159,12 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
           <select class="selection-2" name="instrument" required>
             <option hidden disabled selected value> -- Bitte auswählen -- </option>';
 
-            $query = $bdd->query('SELECT * FROM instruments');
-            while ($data = $query->fetch()){
-              echo '<option value="' . $data['id'] . '">' . $data['instrument_name'] . '</option>';
-            }
+  $query = $bdd->query('SELECT * FROM instruments');
+  while ($data = $query->fetch()) {
+    echo '<option value="' . $data['id'] . '">' . $data['instrument_name'] . '</option>';
+  }
 
-            echo '
+  echo '
           </select>
         </div>
         <span class="focus-input100"></span>
@@ -184,12 +184,12 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
           <select class="selection-2" name="edu_level" required>
             <option hidden disabled selected value> -- Bitte auswählen -- </option>';
 
-            $query = $bdd->query('SELECT * FROM edu_levels');
-            while ($data = $query->fetch()){
-              echo '<option value="' . $data['id'] . '">' . $data['edu_level'] . '</option>';
-            }
+  $query = $bdd->query('SELECT * FROM edu_levels');
+  while ($data = $query->fetch()) {
+    echo '<option value="' . $data['id'] . '">' . $data['edu_level'] . '</option>';
+  }
 
-            echo '
+  echo '
           </select>
         </div>
         <span class="focus-input100"></span>
@@ -334,9 +334,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
   </body>
   </html>
  ';
-}
-
-else {
+} else {
   echo '<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -370,105 +368,104 @@ else {
   $select->execute(array($_POST['email']));
   $test = $select->fetch();
 
-  if (isset($test['id'])){
+  if (isset($test['id'])) {
     echo '<div class="container-contact100">
       <div class="wrap-contact100">
         <h1>Sie haben bereits eine Bewerbung eingereicht.</h1>
         <p>Bitte warten Sie auf die Antwort des Stipendiums und reichen Sie keine weiteren Bewerbungen ein. Vielen Dank.</p>
         <br><h4><a href="https://www.elsie-kuehn-leitz-stipendium.de">Zurück zur Startseite</a></h4>';
   } else {
-echo '
+    echo '
   	<div class="container-contact100">
   		<div class="wrap-contact100">
   			<h1>Ihre Bewerbung wurde erfolgreich eingereicht.</h1>
         <p>Viel Glück bei Ihrer Bewerbung!</p>
         <br><h4><a href="https://www.elsie-kuehn-leitz-stipendium.de">Zurück zur Startseite</a></h4>';
 
-        $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, gender, age, citizenship, citizenship2, instrument, edu_university, edu_level, video_url, cover_letter_url, resume_url, recommendations_url, program_url, comments) VALUES(:email, :name, :surname, :gender, :age, :citizenship, :citizenship2, :instrument, :edu_university, :edu_level, :video_url, :cover_letter_url, :resume_url, :recommendations_url, :program_url, :comments)');
+    $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, gender, age, citizenship, citizenship2, instrument, edu_university, edu_level, video_url, cover_letter_url, resume_url, recommendations_url, program_url, comments) VALUES(:email, :name, :surname, :gender, :age, :citizenship, :citizenship2, :instrument, :edu_university, :edu_level, :video_url, :cover_letter_url, :resume_url, :recommendations_url, :program_url, :comments)');
 
-        $cover_letter_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
+    $cover_letter_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
 
-        $target_dir = "../uploads/" . md5($_POST['email']) . '/';
-        if (!file_exists($target_dir)){
-          mkdir($target_dir);
-        }
+    $target_dir = "../uploads/" . md5($_POST['email']) . '/';
+    if (!file_exists($target_dir)) {
+      mkdir($target_dir);
+    }
 
-        if (isset($_FILES['file_cover_letter'])){
-          $target_file = $target_dir . basename($_FILES["file_cover_letter"]["name"]);
-          move_uploaded_file($_FILES["file_cover_letter"]["tmp_name"], $target_file);
-          $cover_letter = $cover_letter . basename($_FILES["file_cover_letter"]["name"]);
-        }
+    if (isset($_FILES['file_cover_letter'])) {
+      $target_file = $target_dir . basename($_FILES["file_cover_letter"]["name"]);
+      move_uploaded_file($_FILES["file_cover_letter"]["tmp_name"], $target_file);
+      $cover_letter = $cover_letter . basename($_FILES["file_cover_letter"]["name"]);
+    }
 
-        $resume_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
+    $resume_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
-        if (isset($_FILES['file_resume'])){
-          $target_file = $target_dir . basename($_FILES["file_resume"]["name"]);
-          move_uploaded_file($_FILES["file_resume"]["tmp_name"], $target_file);
-          $resume_url = $resume_url . basename($_FILES["file_resume"]["name"]);
-        }
+    if (isset($_FILES['file_resume'])) {
+      $target_file = $target_dir . basename($_FILES["file_resume"]["name"]);
+      move_uploaded_file($_FILES["file_resume"]["tmp_name"], $target_file);
+      $resume_url = $resume_url . basename($_FILES["file_resume"]["name"]);
+    }
 
-        $recommendations_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
+    $recommendations_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
-        if (isset($_FILES['file_recommendations'])){
-          $target_file = $target_dir . basename($_FILES["file_recommendations"]["name"]);
-          move_uploaded_file($_FILES["file_recommendations"]["tmp_name"], $target_file);
-          $recommendations_url = $recommendations_url . basename($_FILES["file_recommendations"]["name"]);
-        }
+    if (isset($_FILES['file_recommendations'])) {
+      $target_file = $target_dir . basename($_FILES["file_recommendations"]["name"]);
+      move_uploaded_file($_FILES["file_recommendations"]["tmp_name"], $target_file);
+      $recommendations_url = $recommendations_url . basename($_FILES["file_recommendations"]["name"]);
+    }
 
-        $program_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
+    $program_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
 
-        if (isset($_FILES['file_program'])){
-          $target_file = $target_dir . basename($_FILES["file_program"]["name"]);
-          move_uploaded_file($_FILES["file_program"]["tmp_name"], $target_file);
-          $program_url = $program_url . basename($_FILES["file_program"]["name"]);
-        }
+    if (isset($_FILES['file_program'])) {
+      $target_file = $target_dir . basename($_FILES["file_program"]["name"]);
+      move_uploaded_file($_FILES["file_program"]["tmp_name"], $target_file);
+      $program_url = $program_url . basename($_FILES["file_program"]["name"]);
+    }
 
-        $query->execute(array(
-          'email' => $_POST['email'],
-          'name' => $_POST['lastname'],
-          'surname' => $_POST['firstname'],
-          'gender' => $_POST['gender'],
-          'age' => $_POST['age'],
-          'citizenship' => $_POST['citizenship'],
-          'citizenship2' => intval($_POST['citizenship2']) == 0 ? NULL : $_POST['citizenship2'],
-          'instrument' => $_POST['instrument'],
-          'edu_university' => $_POST['edu_university'],
-          'edu_level' => $_POST['edu_level'],
-          'video_url' => $_POST['video_url'],
-          'cover_letter_url' => $cover_letter,
-          'resume_url' => $resume_url,
-          'recommendations_url' => $recommendations_url,
-          'program_url' => $program_url,
-          'comments' => $_POST['comments']
-        ));
+    $query->execute(array(
+      'email' => $_POST['email'],
+      'name' => $_POST['lastname'],
+      'surname' => $_POST['firstname'],
+      'gender' => $_POST['gender'],
+      'age' => $_POST['age'],
+      'citizenship' => $_POST['citizenship'],
+      'citizenship2' => intval($_POST['citizenship2']) == 0 ? NULL : $_POST['citizenship2'],
+      'instrument' => $_POST['instrument'],
+      'edu_university' => $_POST['edu_university'],
+      'edu_level' => $_POST['edu_level'],
+      'video_url' => $_POST['video_url'],
+      'cover_letter_url' => $cover_letter,
+      'resume_url' => $resume_url,
+      'recommendations_url' => $recommendations_url,
+      'program_url' => $program_url,
+      'comments' => $_POST['comments']
+    ));
 
-        // Send an email to the candidate
-        // PHPMailer
+    // Send an email to the candidate
+    // PHPMailer
 
-        $mail = new PHPMailer(true);
-        $mail->CharSet = 'UTF-8';
-        $mail->setLanguage('de', 'PHPMailer/language/');
-        $mail->Encoding = 'base64';
-        $mail->isSMTP();
-        $mail->Host = getEKLMailHost();
-        $mail->SMTPAuth = true;
-        $mail->Username = getEKLMailUsername();
-        $mail->Password = getEKLMailPassword();
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
-        $mail->addAddress($_POST['email'], $_POST['firstname'] . ' ' . $_POST['lastname']);
-        $mail->isHTML(true);
-        $mail->Subject = 'Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium';
-        $mail->Body = 'Sehr geehrte/r ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ',<br><br>
-        wir haben Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium erhalten. Vielen Dank für Ihre Bewerbung.<br><br>
+    $mail = new PHPMailer(true);
+    $mail->CharSet = 'UTF-8';
+    $mail->setLanguage('de', 'PHPMailer/language/');
+    $mail->Encoding = 'base64';
+    $mail->isSMTP();
+    $mail->Host = getEKLMailHost();
+    $mail->SMTPAuth = true;
+    $mail->Username = getEKLMailUsername();
+    $mail->Password = getEKLMailPassword();
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
+    $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
+    $mail->addAddress($_POST['email'], $_POST['firstname'] . ' ' . $_POST['lastname']);
+    $mail->isHTML(true);
+    $mail->Subject = 'Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium';
+    $mail->Body = 'Sehr geehrte/r ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ',<br><br>
+        wir haben Ihre Unterlagen für das Elsie Kühn-Leitz Stipendium erhalten. Vielen Dank für Ihre Bewerbung.<br><br>
         Mit freundlichen Grüßen,<br>
         Die Auswahlkommission für das Elsie Kühn-Leitz Stipendium';
-        $mail->send();
+    $mail->send();
+  }
 
-      }
-
-        echo '
+  echo '
 
   		</div>
   	</div>
@@ -511,5 +508,3 @@ echo '
   </html>
  ';
 }
-
-?>
