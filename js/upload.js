@@ -36,7 +36,9 @@ document.querySelectorAll('.file-input').forEach(input => {
         e.preventDefault();
         this.style.backgroundColor = '';
         // Check the file extension (.pdf or .doc or .docx)
-        if (e.dataTransfer.files[0].name.match(/\.(pdf|doc|docx)$/i)) {
+        if (parseInt(fileUpload.files.length) > 1) {
+            alert('Bitte nur eine Datei hochladen.');
+        } else if (e.dataTransfer.files[0].name.match(/\.(pdf|doc|docx)$/i)) {
             input.files = e.dataTransfer.files;
             input.dispatchEvent(new Event('change')); // Trigger change event manually
         } else {
