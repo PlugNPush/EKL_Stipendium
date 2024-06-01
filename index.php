@@ -249,7 +249,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
 
       <!-- Kommentar -->
       <div class="wrap-input100 validate-input">
-        <span class="label-input100">Kommentar</span>
+        <span class="label-input100">Kommentar (optional)</span>
         <textarea class="input100" name="comments" placeholder="Kommentar"></textarea>
         <span class="focus-input100"></span>
       </div>
