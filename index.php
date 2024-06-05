@@ -288,6 +288,20 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
             return;
           }
         }
+        for (let i = 0; i < document.querySelectorAll("select").length; i++) {
+          if (document.querySelectorAll("select")[i].checkValidity() === false) {
+            document.querySelectorAll("select")[i].reportValidity();
+            return;
+          }
+        }
+        for (let i = 0; i < document.querySelectorAll("textarea").length; i++) {
+          if (document.querySelectorAll("textarea")[i].checkValidity() === false) {
+            document.querySelectorAll("textarea")[i].reportValidity();
+            return;
+          }
+        }
+        document.querySelector("form").reportValidity();
+        return;
       }
       removeEventListener("beforeunload", beforeUnloadHandler);
       document.querySelector("form").submit();
