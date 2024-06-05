@@ -258,7 +258,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       <div class="container-contact100-form-btn">
         <div class="wrap-contact100-form-btn">
           <div class="contact100-form-bgbtn"></div>
-          <button class="contact100-form-btn">
+          <button class="contact100-form-btn" onclick="initiateUpload()">
             <span>
               Jetzt bewerben!
               <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
@@ -279,6 +279,12 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
   	<div id="dropDownSelect1"></div>
 
     <script>
+
+    function initiateUpload() {
+      removeEventListener("beforeunload", beforeUnloadHandler);
+      document.querySelector("form").submit();
+    }
+
     function abortConfirm() {
       if (confirm("Sind Sie sicher, dass Sie das Formular verlassen möchten? Ihre Daten werden nicht gespeichert.")) {
         removeEventListener("beforeunload", beforeUnloadHandler);
