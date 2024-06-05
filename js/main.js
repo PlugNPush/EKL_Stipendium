@@ -53,7 +53,7 @@
        });
     });
 
-    $('.validate-form .input100-select').each(function(){
+    $('.validate-form .selection-2').each(function(){
         $(this).focus(function(){
            hideValidate(this);
        });
