@@ -286,7 +286,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
         for (let i = 0; i < elements.length; i++) {
           if (!elements[i].checkValidity()) {
             elements[i].reportValidity();
-            return;
+            elements[i].parentElement.classList.add("alert-validate");
           }
         }
         document.querySelector("form").reportValidity();
