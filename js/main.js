@@ -67,6 +67,16 @@
        });
     });
 
+    $('.validate-form .file-input').each(function(){
+        $(this).focus(function(){
+           hideValidate(this);
+       });
+
+       $(this).on('change click', function(){
+           hideValidate(this);
+       });
+    });
+
     function showValidate(input) {
         var thisAlert = $(input).parent();
 
