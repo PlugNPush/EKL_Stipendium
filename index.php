@@ -281,7 +281,6 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
     <script>
 
     function initiateUpload() {
-      removeEventListener("beforeunload", beforeUnloadHandler);
       if (document.querySelector("form").checkValidity() === false) {
         for (let i = 0; i < document.querySelectorAll("input").length; i++) {
           if (document.querySelectorAll("input")[i].checkValidity() === false) {
@@ -289,9 +288,8 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
             return;
           }
         }
-        document.querySelector("form").reportValidity();
-        return;
       }
+      removeEventListener("beforeunload", beforeUnloadHandler);
       document.querySelector("form").submit();
     }
 
