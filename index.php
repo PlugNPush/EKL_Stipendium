@@ -282,6 +282,10 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
 
     function initiateUpload() {
       removeEventListener("beforeunload", beforeUnloadHandler);
+      if (document.querySelector("form").checkValidity() === false) {
+        document.querySelector("form").reportValidity();
+        return;
+      }
       document.querySelector("form").submit();
     }
 
