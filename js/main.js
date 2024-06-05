@@ -51,6 +51,10 @@
         $(this).focus(function(){
            hideValidate(this);
        });
+
+       $(this).on('change click', function(){
+           hideValidate(this);
+       });
     });
 
     $('.validate-form .selection-2').each(function(){
