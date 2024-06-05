@@ -48,19 +48,19 @@
 
 
     $('.validate-form .input100').each(function(){
-       $(this).on('change click input', function(){
+       $(this).on('change input', function(){
            hideValidate(this);
        });
     });
 
     $('.validate-form .selection-2').each(function(){
-       $(this).on('change click', function(){
+       $(this).on('change', function(){
            hideValidate(this);
        });
     });
 
     $('.validate-form .file-input').each(function(){
-       $(this).on('change click', function(){
+       $(this).on('change', function(){
            hideValidate(this);
        });
     });
