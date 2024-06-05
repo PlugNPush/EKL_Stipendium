@@ -283,6 +283,12 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
     function initiateUpload() {
       removeEventListener("beforeunload", beforeUnloadHandler);
       if (document.querySelector("form").checkValidity() === false) {
+        for (let i = 0; i < document.querySelectorAll("input").length; i++) {
+          if (document.querySelectorAll("input")[i].checkValidity() === false) {
+            document.querySelectorAll("input")[i].reportValidity();
+            return;
+          }
+        }
         document.querySelector("form").reportValidity();
         return;
       }
