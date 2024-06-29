@@ -403,17 +403,17 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
 
     $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, gender, age, citizenship, citizenship2, instrument, edu_university, edu_level, video_url, cover_letter_url, resume_url, recommendations_url, program_url, comments) VALUES(:email, :name, :surname, :gender, :age, :citizenship, :citizenship2, :instrument, :edu_university, :edu_level, :video_url, :cover_letter_url, :resume_url, :recommendations_url, :program_url, :comments)');
 
-    $cover_letter_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
-
     $target_dir = "../uploads/" . md5($_POST['email']) . '/';
     if (!file_exists($target_dir)) {
       mkdir($target_dir);
     }
 
+    $cover_letter_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
+
     if (isset($_FILES['file_cover_letter'])) {
       $target_file = $target_dir . basename($_FILES["file_cover_letter"]["name"]);
       move_uploaded_file($_FILES["file_cover_letter"]["tmp_name"], $target_file);
-      $cover_letter = $cover_letter . basename($_FILES["file_cover_letter"]["name"]);
+      $cover_letter_url = $cover_letter_url . basename($_FILES["file_cover_letter"]["name"]);
     }
 
     $resume_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
@@ -452,7 +452,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       'edu_university' => $_POST['edu_university'],
       'edu_level' => $_POST['edu_level'],
       'video_url' => $_POST['video_url'],
-      'cover_letter_url' => $cover_letter,
+      'cover_letter_url' => $cover_letter_url,
       'resume_url' => $resume_url,
       'recommendations_url' => $recommendations_url,
       'program_url' => $program_url,
