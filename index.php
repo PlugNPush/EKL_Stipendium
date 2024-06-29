@@ -416,7 +416,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       $cover_letter_url = $cover_letter_url . basename($_FILES["file_cover_letter"]["name"]);
     }
 
-    $resume_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
+    $resume_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
 
     if (isset($_FILES['file_resume'])) {
       $target_file = $target_dir . basename($_FILES["file_resume"]["name"]);
@@ -424,7 +424,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       $resume_url = $resume_url . basename($_FILES["file_resume"]["name"]);
     }
 
-    $recommendations_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
+    $recommendations_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
 
     if (isset($_FILES['file_recommendations'])) {
       $target_file = $target_dir . basename($_FILES["file_recommendations"]["name"]);
@@ -432,7 +432,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       $recommendations_url = $recommendations_url . basename($_FILES["file_recommendations"]["name"]);
     }
 
-    $program_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/';
+    $program_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
 
     if (isset($_FILES['file_program'])) {
       $target_file = $target_dir . basename($_FILES["file_program"]["name"]);
