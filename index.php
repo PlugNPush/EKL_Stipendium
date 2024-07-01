@@ -53,7 +53,7 @@ echo '<!DOCTYPE html>
   <div class="container-contact100">
     <div class="wrap-contact100">
       <h1>Ende der Bewerbungsfrist</h1>
-      <p>Die Bewerbungsfrist für das Elsie Kühn-Leitz Stipendium 2024 ist abgelaufen. Wir bedanken uns bei allen Bewerberinnen und Bewerbern für Ihr Interesse und Ihre Bewerbungen. Die Bewerberinnen und Bewerber werden im Anschluss über das Ergebnis informiert.</p>
+      <p>Die Bewerbungsfrist für das Elsie Kühn-Leitz Stipendium 2024 ist abgelaufen. Wir bedanken uns bei allen Bewerberinnen und Bewerbern für ihr Interesse und Ihre Bewerbungen. Die Bewerberinnen und Bewerber werden im Anschluss über das Ergebnis informiert.</p>
       <br><h4><a href="https://www.elsie-kuehn-leitz-stipendium.de">Zurück zur Startseite</a></h4>
     </div>
   </div>
