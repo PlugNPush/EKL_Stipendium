@@ -49,7 +49,7 @@ while ($data = $query->fetch()) {
     $result = $mail->send();
 
     if (!$result) {
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
+        echo 'Mailer Error: ' . $mail->ErrorInfo . '<br>';
     } else {
         $query2 = $bdd->prepare('UPDATE candidates SET nonfinalist_sent = 1 WHERE id = :id');
         $query2->execute(array('id' => $data['id']));
@@ -57,3 +57,5 @@ while ($data = $query->fetch()) {
     }
 
 }
+
+echo 'All emails are now sent or have been attempted to be sent.';
