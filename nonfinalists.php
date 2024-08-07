@@ -35,22 +35,25 @@ while ($data = $query->fetch()) {
 
     echo "<br><br>=========== end of email ============<br><br>";
 
-    // $mail = new PHPMailer(true);
-    // $mail->CharSet = 'UTF-8';
-    // $mail->setLanguage('de', 'PHPMailer/language/');
-    // $mail->Encoding = 'base64';
-    // $mail->isSMTP();
-    // $mail->Host = getEKLMailHost();
-    // $mail->SMTPAuth = true;
-    // $mail->Username = getEKLMailUsername();
-    // $mail->Password = getEKLMailPassword();
-    // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    // $mail->Port = 587;
-    // $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
+    $mail = new PHPMailer(true);
+    $mail->CharSet = 'UTF-8';
+    $mail->setLanguage('de', 'PHPMailer/language/');
+    $mail->Encoding = 'base64';
+    $mail->isSMTP();
+    $mail->Host = getEKLMailHost();
+    $mail->SMTPAuth = true;
+    $mail->Username = getEKLMailUsername();
+    $mail->Password = getEKLMailPassword();
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
+    $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
     // $mail->addAddress($data['email'], $data['surname'] . ' ' . $data['name']);
-    // $mail->isHTML(true);
-    // $mail->Subject = 'Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium';
-    // $mail->Body = $email_body;
-    // $mail->send();
+    $mail->addAddress('michael.nass@free.fr', 'Michael Nass');
+    $mail->isHTML(true);
+    $mail->Subject = 'Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium';
+    $mail->Body = $email_body;
+    $mail->send();
+
+    break;
 
 }
