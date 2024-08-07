@@ -17,23 +17,18 @@ try {
 // Démarrage de la session
 session_start();
 
-$query = $bdd->prepare('SELECT * FROM candidates WHERE finalist = 0');
+$query = $bdd->prepare('SELECT * FROM candidates WHERE finalist = 0 AND nonfinalist_sent = 0');
 $query->execute();
 
 while ($data = $query->fetch()) {
-
-    echo "=========== will send email to " . $data['email'] . " (" . $data['surname'] . ' ' . $data['name'] . ") ===========<br><br>";
 
     $email_body_introduction = ($data["gender"] == 1 ? 'Sehr geehrter Herr ' : ($data["gender"] == 2 ? 'Sehr geehrte Frau ' : 'Sehr geehrte/r ')) . $data['name'] . ',<br><br>';
     $email_body = $email_body_introduction . "wir möchten Ihnen noch einmal herzlich für Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium danken. In den letzten vier Wochen hat unsere achtköpfige internationale Auswahlkommission in einem mehrstufigen Prozess alle Bewerbungen eingehend gesichtet und diskutiert; dabei hat uns die ausgesprochen hohe Qualität nahezu aller Profile sehr beeindruckt.<br><br>
     Leider müssen wir Ihnen mitteilen, dass Sie nach gründlicher Abwägung nicht zu den drei Musikern/Musikerinnen gehören, die zum Vorspiel nach Wetzlar eingeladen werden. Wir wünschen Ihnen dennoch viel Glück und Erfolg bei Ihrem weiteren Werdegang. Vielleicht überschneiden sich dabei doch einmal die Wege mit der Wetzlarer Kulturgemeinschaft? Nach der gegenwärtigen Planung sollen übrigens Klavier, Harfe und Gesang in drei Jahren wieder ausgeschrieben werden.<br><br>
     Die Auswahlkommission<br>
-    Elsie Kühn-Leitz Stipendium 2024/5<br><br>
+    Elsie Kühn-Leitz Stipendium 2024/25<br><br>
     Wetzlarer Kulturgemeinschaft e.V.<br>
     <a href=\"mailto:info@wetzlarer-kulturgemeinschaft.de\">info@wetzlarer-kulturgemeinschaft.de</a>";
-    echo $email_body;
-
-    echo "<br><br>=========== end of email ============<br><br>";
 
     $mail = new PHPMailer(true);
     $mail->CharSet = 'UTF-8';
@@ -47,13 +42,18 @@ while ($data = $query->fetch()) {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
     $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
-    // $mail->addAddress($data['email'], $data['surname'] . ' ' . $data['name']);
-    $mail->addAddress('michael.nass@free.fr', 'Michael Nass');
+    $mail->addAddress($data['email'], $data['surname'] . ' ' . $data['name']);
     $mail->isHTML(true);
     $mail->Subject = 'Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium';
     $mail->Body = $email_body;
-    $mail->send();
+    $result = $mail->send();
 
-    break;
+    if (!$result) {
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    } else {
+        $query2 = $bdd->prepare('UPDATE candidates SET nonfinalist_sent = 1 WHERE id = :id');
+        $query2->execute(array('id' => $data['id']));
+        echo 'Email sent to ' . $data['surname'] . ' ' . $data['name'] . ' (' . $data['email'] . ') successfully.<br>';
+    }
 
 }
