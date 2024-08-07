@@ -30,7 +30,7 @@ while ($data = $query->fetch()) {
     Die Auswahlkommission<br>
     Elsie Kühn-Leitz Stipendium 2024/5<br><br>
     Wetzlarer Kulturgemeinschaft e.V.<br>
-    <a href=\"info@wetzlarer-kulturgemeinschaft.de\">info@wetzlarer-kulturgemeinschaft.de</a>";
+    <a href=\"mailto:info@wetzlarer-kulturgemeinschaft.de\">info@wetzlarer-kulturgemeinschaft.de</a>";
     echo $email_body;
 
     echo "<br><br>=========== end of email ============<br><br>";
