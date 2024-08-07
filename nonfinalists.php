@@ -25,7 +25,7 @@ while ($data = $query->fetch()) {
     echo "=========== will send email to " . $data['email'] . " (" . $data['surname'] . ' ' . $data['name'] . ") ===========<br><br>";
 
     $email_body_introduction = ($data["gender"] == 1 ? 'Sehr geehrter Herr ' : ($data["gender"] == 2 ? 'Sehr geehrte Frau ' : 'Sehr geehrte/r ')) . $data['name'] . ',<br><br>';
-    $email_body = $email_body_introduction + "wir möchten Ihnen noch einmal herzlich für Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium danken. In den letzten vier Wochen hat unsere achtköpfige internationale Auswahlkommission in einem mehrstufigen Prozess alle Bewerbungen eingehend gesichtet und diskutiert; dabei hat uns die ausgesprochen hohe Qualität nahezu aller Profile sehr beeindruckt.<br><br>
+    $email_body = $email_body_introduction . "wir möchten Ihnen noch einmal herzlich für Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium danken. In den letzten vier Wochen hat unsere achtköpfige internationale Auswahlkommission in einem mehrstufigen Prozess alle Bewerbungen eingehend gesichtet und diskutiert; dabei hat uns die ausgesprochen hohe Qualität nahezu aller Profile sehr beeindruckt.<br><br>
     Leider müssen wir Ihnen mitteilen, dass Sie nach gründlicher Abwägung nicht zu den drei Musikern/Musikerinnen gehören, die zum Vorspiel nach Wetzlar eingeladen werden. Wir wünschen Ihnen dennoch viel Glück und Erfolg bei Ihrem weiteren Werdegang. Vielleicht überschneiden sich dabei doch einmal die Wege mit der Wetzlarer Kulturgemeinschaft? Nach der gegenwärtigen Planung sollen übrigens Klavier, Harfe und Gesang in drei Jahren wieder ausgeschrieben werden.<br><br>
     Die Auswahlkommission<br><br>
     Elsie Kühn-Leitz Stipendium 2024/5";
