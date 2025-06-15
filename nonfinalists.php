@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../../config/ekl_config.php';
 try {
   $bdd = new PDO('mysql:host=' . getDBHost() . ';dbname=EKL_Stipendium', getDBUsername(), getDBPassword(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));
 } catch (Exception $e) {
-  exit('Erreur while connecting to database: ' . $e->getMessage());
+  exit('Error while connecting to database: ' . $e->getMessage());
 }
 // Démarrage de la session
 session_start();
