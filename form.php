@@ -239,9 +239,9 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       </div>
       <div class="hinweis">Hinweis: Nur PDF- oder Word-Dokumente sind erlaubt.</div>
 
-      <!-- Vorstellungsfilm -->
+      <!-- Bewerbungsvideo -->
       <div class="wrap-input100 validate-input">
-        <span class="label-input100">Vorstellungsfilm: <a target="_blank" href="https://www.youtube.com">YouTube</a>, <a target="_blank" href="https://www.vimeo.com">Vimeo</a> oder ähnliches</span>
+        <span class="label-input100">Bewerbungsvideo: <a target="_blank" href="https://www.youtube.com">YouTube</a>, <a target="_blank" href="https://www.vimeo.com">Vimeo</a> oder ähnliches</span>
         <input class="input100" type="url" name="video_url" placeholder="Link zu YouTube, Vimeo oder ähnliches" required>
         <span class="focus-input100"></span>
       </div>
