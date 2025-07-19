@@ -1,5 +1,10 @@
 <?php
 
+// TODO: Ajouter champ numéro de téléphone (+49 ...)
+// TODO: Forcer les URLs pour utiliser YouTube ou Vimeo exclusivement + 1 seule URL par champ
+// TODO: Indiquer dans un hint que les liens additionnels sont à placer dans le champ "Kommentar"
+// TODO: Normaliser les noms de fichiers uploadés nom-prenom-cv/motivation/references/programme ... .pdf/.docx (sans acacents)
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
