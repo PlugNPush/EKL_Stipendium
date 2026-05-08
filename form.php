@@ -1,10 +1,5 @@
 <?php
 
-// TODO: Ajouter champ numéro de téléphone (+49 ...)
-// TODO: Forcer les URLs pour utiliser YouTube ou Vimeo exclusivement + 1 seule URL par champ
-// TODO: Indiquer dans un hint que les liens additionnels sont à placer dans le champ "Kommentar"
-// TODO: Normaliser les noms de fichiers uploadés nom-prenom-cv/motivation/references/programme ... .pdf/.docx (sans acacents)
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -22,7 +17,64 @@ try {
 // Démarrage de la session
 session_start();
 
-if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["edu_university"]) || !isset($_POST["edu_level"]) || !isset($_POST["video_url"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"])) {
+function normalizeAsciiToken($value)
+{
+  $value = strtolower(trim((string) $value));
+  if (function_exists('iconv')) {
+    $transliterated = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $value);
+    if ($transliterated !== false) {
+      $value = $transliterated;
+    }
+  }
+  $value = preg_replace('/[^a-z0-9]+/', '-', $value);
+  $value = trim($value, '-');
+
+  return $value === '' ? 'kandidat' : $value;
+}
+
+function buildNormalizedUploadFilename($lastname, $firstname, $documentType, $originalFilename)
+{
+  $extension = strtolower(pathinfo((string) $originalFilename, PATHINFO_EXTENSION));
+  if (!in_array($extension, array('pdf', 'doc', 'docx'), true)) {
+    return null;
+  }
+
+  return normalizeAsciiToken($lastname) . '-' . normalizeAsciiToken($firstname) . '-' . $documentType . '.' . $extension;
+}
+
+function isInternationalPhoneNumber($phone)
+{
+  return preg_match('/^\+[1-9][0-9]{0,3}[0-9\s\-\/]{4,20}$/', trim((string) $phone)) === 1;
+}
+
+function isAllowedVideoPlatformUrl($url)
+{
+  $url = trim((string) $url);
+  if ($url === '' || preg_match('/[\s,;]/', $url) === 1) {
+    return false;
+  }
+  if (!filter_var($url, FILTER_VALIDATE_URL)) {
+    return false;
+  }
+
+  $parts = parse_url($url);
+  $host = isset($parts['host']) ? strtolower($parts['host']) : '';
+  $allowedHosts = array(
+    'youtube.com',
+    'www.youtube.com',
+    'm.youtube.com',
+    'youtu.be',
+    'youtube-nocookie.com',
+    'www.youtube-nocookie.com',
+    'vimeo.com',
+    'www.vimeo.com',
+    'player.vimeo.com'
+  );
+
+  return in_array($host, $allowedHosts, true);
+}
+
+if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST['phone']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["edu_university"]) || !isset($_POST["edu_level"]) || !isset($_POST["video_url"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"])) {
   echo '<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -81,6 +133,13 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       <div class="wrap-input100 validate-input">
         <span class="label-input100">Bitte geben Sie Ihren Vornamen ein</span>
         <input class="input100" type="text" name="firstname" placeholder="Vorname" required>
+        <span class="focus-input100"></span>
+      </div>
+
+      <!-- Telefonnummer -->
+      <div class="wrap-input100 validate-input">
+        <span class="label-input100">Telefonnummer (mit Ländervorwahl, z. B. +49 ...)</span>
+        <input class="input100" type="tel" name="phone" placeholder="+49 1512 3456789" pattern="\+[1-9][0-9]{0,3}[0-9\s\-\/]{4,20}" title="Bitte geben Sie eine gültige Telefonnummer mit internationaler Ländervorwahl ein (z. B. +49, +33, +41)." required>
         <span class="focus-input100"></span>
       </div>
 
@@ -246,11 +305,11 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
 
       <!-- Bewerbungsvideo -->
       <div class="wrap-input100 validate-input">
-        <span class="label-input100">Bewerbungsvideo: <a target="_blank" href="https://www.youtube.com">YouTube</a>, <a target="_blank" href="https://www.vimeo.com">Vimeo</a> oder ähnliches</span>
-        <input class="input100" type="url" name="video_url" placeholder="Link zu YouTube, Vimeo oder ähnliches" required>
+        <span class="label-input100">Bewerbungsvideo: nur <a target="_blank" href="https://www.youtube.com">YouTube</a> oder <a target="_blank" href="https://www.vimeo.com">Vimeo</a> (eine URL pro Feld)</span>
+        <input class="input100" type="url" name="video_url" placeholder="https://www.youtube.com/watch?v=... oder https://vimeo.com/..." required>
         <span class="focus-input100"></span>
       </div>
-      <div class="hinweis">Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter)</div>
+      <div class="hinweis">Hinweis: Der Link muss öffentlich zugänglich sein und direkt zum Online-Video führen (keine Downloads oder Passwörter). Erlaubt sind nur YouTube- und Vimeo-Links.</div>
 
       <!-- Kommentar -->
       <div class="wrap-input100 validate-input">
@@ -258,6 +317,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
         <textarea class="input100" name="comments" placeholder="Kommentar"></textarea>
         <span class="focus-input100"></span>
       </div>
+      <div class="hinweis">Hinweis: Zusätzliche Links bitte im Feld "Kommentar" angeben.</div>
 
       <!-- Formular absenden -->
       <div class="container-contact100-form-btn">
@@ -286,6 +346,12 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
     <script>
 
     function initiateUpload() {
+      if (phoneInput) {
+        validatePhone();
+      }
+      if (videoInput) {
+        validateVideoUrl();
+      }
       if (document.querySelector("form").checkValidity() === false) {
         const elements = document.querySelectorAll("input, select, textarea");
         for (let i = 0; i < elements.length; i++) {
@@ -310,6 +376,99 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       }
     }
 
+    const phoneInput = document.querySelector("input[name=\'phone\']");
+    const validatePhone = () => {
+      if (!phoneInput) {
+        return;
+      }
+      const value = phoneInput.value.trim();
+      if (value === "") {
+        phoneInput.setCustomValidity("");
+        if (phoneInput.parentElement) {
+          phoneInput.parentElement.classList.remove("alert-validate");
+        }
+        phoneInput.removeAttribute("aria-invalid");
+        return;
+      }
+      if (!/^\+[1-9][0-9]{0,3}[0-9\s\-\/]{4,20}$/.test(value)) {
+        phoneInput.setCustomValidity("Bitte geben Sie eine Telefonnummer mit internationaler Ländervorwahl ein (z. B. +49, +33, +41).");
+        if (phoneInput.parentElement) {
+          phoneInput.parentElement.classList.add("alert-validate");
+        }
+        phoneInput.setAttribute("aria-invalid", "true");
+        return;
+      }
+      phoneInput.setCustomValidity("");
+      if (phoneInput.parentElement) {
+        phoneInput.parentElement.classList.remove("alert-validate");
+      }
+      phoneInput.removeAttribute("aria-invalid");
+    };
+
+    if (phoneInput) {
+      phoneInput.addEventListener("input", validatePhone);
+      phoneInput.addEventListener("blur", validatePhone);
+    }
+
+    const videoInput = document.querySelector("input[name=\'video_url\']");
+    let validateVideoUrl = () => {};
+    if (videoInput) {
+      const allowedVideoHosts = [
+        "youtube.com",
+        "www.youtube.com",
+        "m.youtube.com",
+        "youtu.be",
+        "youtube-nocookie.com",
+        "www.youtube-nocookie.com",
+        "vimeo.com",
+        "www.vimeo.com",
+        "player.vimeo.com"
+      ];
+
+      validateVideoUrl = () => {
+        const value = videoInput.value.trim();
+        if (value === "") {
+          videoInput.setCustomValidity("");
+          if (videoInput.parentElement) {
+            videoInput.parentElement.classList.remove("alert-validate");
+          }
+          videoInput.removeAttribute("aria-invalid");
+          return;
+        }
+        if (/[,;\s]/.test(value)) {
+          videoInput.setCustomValidity("Bitte geben Sie genau eine URL ein (keine Leerzeichen oder mehrere Links).");
+          if (videoInput.parentElement) {
+            videoInput.parentElement.classList.add("alert-validate");
+          }
+          videoInput.setAttribute("aria-invalid", "true");
+          return;
+        }
+        let parsedUrl;
+        try {
+          parsedUrl = new URL(value);
+        } catch (error) {
+          videoInput.setCustomValidity("Bitte geben Sie eine gültige URL ein.");
+          return;
+        }
+        if (!allowedVideoHosts.includes(parsedUrl.hostname.toLowerCase())) {
+          videoInput.setCustomValidity("Bitte verwenden Sie ausschließlich YouTube- oder Vimeo-Links.");
+          if (videoInput.parentElement) {
+            videoInput.parentElement.classList.add("alert-validate");
+          }
+          videoInput.setAttribute("aria-invalid", "true");
+          return;
+        }
+        videoInput.setCustomValidity("");
+        if (videoInput.parentElement) {
+          videoInput.parentElement.classList.remove("alert-validate");
+        }
+        videoInput.removeAttribute("aria-invalid");
+      };
+
+      videoInput.addEventListener("input", validateVideoUrl);
+      videoInput.addEventListener("blur", validateVideoUrl);
+    }
+
     const beforeUnloadHandler = (event) => {
       // Recommended
       event.preventDefault();
@@ -332,8 +491,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
   	<script src="vendor/select2/select2.min.js"></script>
   	<script>
   		$(".selection-2").select2({
-  			minimumResultsForSearch: 20,
-  			dropdownParent: $(\'#dropDownSelect1\')
+  			minimumResultsForSearch: 20
   		});
   	</script>
   <!--===============================================================================================-->
@@ -388,6 +546,19 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
   </head>
   <body>';
 
+  $phone = trim($_POST['phone']);
+  $video_url = trim($_POST['video_url']);
+  $comments = isset($_POST['comments']) ? trim($_POST['comments']) : '';
+  if (!isInternationalPhoneNumber($phone) || !isAllowedVideoPlatformUrl($video_url)) {
+    echo '<div class="container-contact100">
+      <div class="wrap-contact100">
+        <h1>Ungültige Angaben im Formular</h1>
+        <p>Bitte prüfen Sie Telefonnummer (mit internationaler Ländervorwahl, z. B. +49) und Video-Link (nur YouTube oder Vimeo, genau eine URL pro Feld).</p>
+        <br><h4><a href="javascript:history.back()">Zurück zum Formular</a></h4>
+      </div>
+    </div>';
+  } else {
+
   $select = $bdd->prepare('SELECT * FROM candidates WHERE email = ?');
   $select->execute(array($_POST['email']));
   $test = $select->fetch();
@@ -406,7 +577,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
         <p>Viel Glück bei Ihrer Bewerbung!</p>
         <br><h4><a href="https://www.elsie-kuehn-leitz-stipendium.de">Zurück zur Startseite</a></h4>';
 
-    $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, gender, age, citizenship, citizenship2, instrument, edu_university, edu_level, video_url, cover_letter_url, resume_url, recommendations_url, program_url, comments) VALUES(:email, :name, :surname, :gender, :age, :citizenship, :citizenship2, :instrument, :edu_university, :edu_level, :video_url, :cover_letter_url, :resume_url, :recommendations_url, :program_url, :comments)');
+    $query = $bdd->prepare('INSERT INTO candidates(email, name, surname, phone, gender, age, citizenship, citizenship2, instrument, edu_university, edu_level, video_url, cover_letter_url, resume_url, recommendations_url, program_url, comments) VALUES(:email, :name, :surname, :phone, :gender, :age, :citizenship, :citizenship2, :instrument, :edu_university, :edu_level, :video_url, :cover_letter_url, :resume_url, :recommendations_url, :program_url, :comments)');
 
     $target_dir = "../uploads/" . md5($_POST['email']) . '/';
     if (!file_exists($target_dir)) {
@@ -416,39 +587,52 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
     $cover_letter_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
 
     if (isset($_FILES['file_cover_letter'])) {
-      $target_file = $target_dir . basename($_FILES["file_cover_letter"]["name"]);
-      move_uploaded_file($_FILES["file_cover_letter"]["tmp_name"], $target_file);
-      $cover_letter_url = $cover_letter_url . basename($_FILES["file_cover_letter"]["name"]);
+      $normalized_cover_letter_name = buildNormalizedUploadFilename($_POST['lastname'], $_POST['firstname'], 'coverletter', $_FILES['file_cover_letter']['name']);
+      if ($normalized_cover_letter_name !== null) {
+        $target_file = $target_dir . $normalized_cover_letter_name;
+        move_uploaded_file($_FILES['file_cover_letter']['tmp_name'], $target_file);
+        $cover_letter_url = $cover_letter_url . $normalized_cover_letter_name;
+      }
     }
 
     $resume_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
 
     if (isset($_FILES['file_resume'])) {
-      $target_file = $target_dir . basename($_FILES["file_resume"]["name"]);
-      move_uploaded_file($_FILES["file_resume"]["tmp_name"], $target_file);
-      $resume_url = $resume_url . basename($_FILES["file_resume"]["name"]);
+      $normalized_resume_name = buildNormalizedUploadFilename($_POST['lastname'], $_POST['firstname'], 'resume', $_FILES['file_resume']['name']);
+      if ($normalized_resume_name !== null) {
+        $target_file = $target_dir . $normalized_resume_name;
+        move_uploaded_file($_FILES['file_resume']['tmp_name'], $target_file);
+        $resume_url = $resume_url . $normalized_resume_name;
+      }
     }
 
     $recommendations_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
 
     if (isset($_FILES['file_recommendations'])) {
-      $target_file = $target_dir . basename($_FILES["file_recommendations"]["name"]);
-      move_uploaded_file($_FILES["file_recommendations"]["tmp_name"], $target_file);
-      $recommendations_url = $recommendations_url . basename($_FILES["file_recommendations"]["name"]);
+      $normalized_recommendations_name = buildNormalizedUploadFilename($_POST['lastname'], $_POST['firstname'], 'recommendations', $_FILES['file_recommendations']['name']);
+      if ($normalized_recommendations_name !== null) {
+        $target_file = $target_dir . $normalized_recommendations_name;
+        move_uploaded_file($_FILES['file_recommendations']['tmp_name'], $target_file);
+        $recommendations_url = $recommendations_url . $normalized_recommendations_name;
+      }
     }
 
     $program_url = 'https://uploads.elsie-kuehn-leitz-stipendium.de/' . md5($_POST['email']) . '/';
 
     if (isset($_FILES['file_program'])) {
-      $target_file = $target_dir . basename($_FILES["file_program"]["name"]);
-      move_uploaded_file($_FILES["file_program"]["tmp_name"], $target_file);
-      $program_url = $program_url . basename($_FILES["file_program"]["name"]);
+      $normalized_program_name = buildNormalizedUploadFilename($_POST['lastname'], $_POST['firstname'], 'program', $_FILES['file_program']['name']);
+      if ($normalized_program_name !== null) {
+        $target_file = $target_dir . $normalized_program_name;
+        move_uploaded_file($_FILES['file_program']['tmp_name'], $target_file);
+        $program_url = $program_url . $normalized_program_name;
+      }
     }
 
     $query->execute(array(
       'email' => $_POST['email'],
       'name' => $_POST['lastname'],
       'surname' => $_POST['firstname'],
+      'phone' => $phone,
       'gender' => $_POST['gender'],
       'age' => $_POST['age'],
       'citizenship' => $_POST['citizenship'],
@@ -456,12 +640,12 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       'instrument' => $_POST['instrument'],
       'edu_university' => $_POST['edu_university'],
       'edu_level' => $_POST['edu_level'],
-      'video_url' => $_POST['video_url'],
+      'video_url' => $video_url,
       'cover_letter_url' => $cover_letter_url,
       'resume_url' => $resume_url,
       'recommendations_url' => $recommendations_url,
       'program_url' => $program_url,
-      'comments' => $_POST['comments']
+      'comments' => $comments
     ));
 
     // Send an email to the candidate
@@ -490,6 +674,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
         Elsie Kühn-Leitz Stipendium';
     $mail->send();
   }
+  }
 
   echo '
 
@@ -515,8 +700,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
   	<script src="vendor/select2/select2.min.js"></script>
   	<script>
   		$(".selection-2").select2({
-  			minimumResultsForSearch: 20,
-  			dropdownParent: $(\'#dropDownSelect1\')
+  			minimumResultsForSearch: 20
   		});
   	</script>
   <!--===============================================================================================-->
