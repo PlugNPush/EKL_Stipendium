@@ -741,6 +741,7 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
     $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
+    $mail->addReplyTo('contact@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
     $mail->addAddress($_POST['email'], $_POST['firstname'] . ' ' . $_POST['lastname']);
     $mail->isHTML(true);
     $mail->Subject = 'Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium';

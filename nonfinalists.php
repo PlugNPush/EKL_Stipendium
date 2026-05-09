@@ -42,6 +42,7 @@ while ($data = $query->fetch()) {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
     $mail->setFrom('noreply@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
+    $mail->addReplyTo('contact@elsie-kuehn-leitz-stipendium.de', 'Elsie Kühn-Leitz Stipendium');
     $mail->addAddress($data['email'], $data['surname'] . ' ' . $data['name']);
     $mail->isHTML(true);
     $mail->Subject = 'Ihre Bewerbung für das Elsie Kühn-Leitz Stipendium';
