@@ -74,7 +74,7 @@ function isAllowedVideoPlatformUrl($url)
   return in_array($host, $allowedHosts, true);
 }
 
-if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST['phone']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["edu_university"]) || !isset($_POST["edu_level"]) || !isset($_POST["video_url"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"])) {
+if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST['phone']) || !isset($_POST["gender"]) || !isset($_POST["age"]) || !isset($_POST["citizenship"]) || !isset($_POST["instrument"]) || !isset($_POST["edu_university"]) || !isset($_POST["edu_level"]) || !isset($_POST["video_url"]) || !isset($_FILES["file_cover_letter"]) || !isset($_FILES["file_resume"]) || !isset($_FILES["file_recommendations"]) || !isset($_FILES["file_program"]) || !isset($_POST["consent_dsgvo"]) || !isset($_POST["consent_audition"]) || !isset($_POST["consent_scholarship"]) || !isset($_POST["consent_concerts"])) {
   echo '<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -319,6 +319,54 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       </div>
       <div class="hinweis">Hinweis: Zusätzliche Links bitte im Feld "Kommentar" angeben.</div>
 
+      <!-- DSGVO Consent -->
+      <div class="wrap-input100 validate-input">
+        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+          <input type="checkbox" name="consent_dsgvo" required style="flex-shrink: 0; margin-top: 4px;">
+          <span style="text-align: justify;">
+            <strong>Einwilligung zur Verarbeitung personenbezogener Daten (DSGVO)</strong><br>
+            Ich bestätige hiermit, dass die Wetzlarer Kulturgemeinschaft berechtigt ist, die von mir im Rahmen der Bewerbung übermittelten, personenbezogenen Daten zum Zweck der Organisation und Vergabe des Stipendiums bis zu 12 Monate zu speichern und zu verarbeiten. Sollte ich unter den drei Finalisten sein, dürfen Bilder von mir sowie Informationen zu meinem künstlerischen Werdegang im Rahmen der Presse‑ und Öffentlichkeitsarbeit der Wetzlarer Kulturgemeinschaft verwendet werden.
+          </span>
+        </label>
+        <span class="focus-input100"></span>
+      </div>
+
+      <!-- Audition Availability -->
+      <div class="wrap-input100 validate-input">
+        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+          <input type="checkbox" name="consent_audition" required style="flex-shrink: 0; margin-top: 4px;">
+          <span style="text-align: justify;">
+            <strong>Verfügbarkeit für das Vorspiel</strong><br>
+            Ich bestätige hiermit, dass ich mir bis zur Mitteilung der Entscheidung der Auswahlkommission den Vorspieltermin am Nachmittag des 4. September 2026 in Wetzlar freihalte und bei Bedarf eigenständig für einen Korrepetitor / eine Korrepetitorin sorge.
+          </span>
+        </label>
+        <span class="focus-input100"></span>
+      </div>
+
+      <!-- Scholarship Mention Obligation -->
+      <div class="wrap-input100 validate-input">
+        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+          <input type="checkbox" name="consent_scholarship" required style="flex-shrink: 0; margin-top: 4px;">
+          <span style="text-align: justify;">
+            <strong>Verpflichtung zur Nennung des Stipendiums</strong><br>
+            Ich verpflichte mich, im Falle des Erhalts des Stipendiums dieses in Konzertprogrammen sowie in meiner eigenen Kommunikation (Lebenslauf, Website, soziale Medien etc.) an geeigneter Stelle und mindestens während des Förderjahres zu erwähnen.
+          </span>
+        </label>
+        <span class="focus-input100"></span>
+      </div>
+
+      <!-- Concert Participation -->
+      <div class="wrap-input100 validate-input">
+        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+          <input type="checkbox" name="consent_concerts" required style="flex-shrink: 0; margin-top: 4px;">
+          <span style="text-align: justify;">
+            <strong>Mitwirkung an Konzerten in Wetzlar und Avignon</strong><br>
+            Ich bestätige, dass ich für je ein öffentliches Konzert in Wetzlar und in Avignon ohne Honorar – bei Erstattung der Reisekosten – zur Verfügung stehe. Mir ist bewusst, dass diese Konzerte in der Regel in der darauffolgenden Saison stattfinden. Ich verstehe zudem, dass aus dieser Zusage kein Rechtsanspruch auf die Durchführung oder Terminierung der Konzerte entsteht.
+          </span>
+        </label>
+        <span class="focus-input100"></span>
+      </div>
+
       <!-- Formular absenden -->
       <div class="container-contact100-form-btn">
         <div class="wrap-contact100-form-btn">
@@ -352,6 +400,24 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
       if (videoInput) {
         validateVideoUrl();
       }
+
+      // Validate checkboxes
+      const checkboxes = document.querySelectorAll("input[type=\'checkbox\'][required]");
+      let allCheckboxesChecked = true;
+      checkboxes.forEach(checkbox => {
+        if (!checkbox.checked) {
+          allCheckboxesChecked = false;
+          checkbox.parentElement.classList.add("alert-validate");
+        } else {
+          checkbox.parentElement.classList.remove("alert-validate");
+        }
+      });
+
+      if (!allCheckboxesChecked) {
+        alert("Bitte akzeptieren Sie alle erforderlichen Bedingungen.");
+        return;
+      }
+
       if (document.querySelector("form").checkValidity() === false) {
         const elements = document.querySelectorAll("input, select, textarea");
         for (let i = 0; i < elements.length; i++) {
@@ -478,6 +544,18 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
     };
 
     addEventListener("beforeunload", beforeUnloadHandler);
+
+    // Add event listeners for checkbox validation
+    const checkboxes = document.querySelectorAll("input[type=\'checkbox\'][required]");
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          checkbox.parentElement.classList.remove("alert-validate");
+        } else {
+          checkbox.parentElement.classList.add("alert-validate");
+        }
+      });
+    });
     </script>
 
   <!--===============================================================================================-->
