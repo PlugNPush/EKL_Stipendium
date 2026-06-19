@@ -708,8 +708,8 @@ if (!isset($_POST['email']) || !isset($_POST['lastname']) || !isset($_POST['firs
 
     $query->execute(array(
       'email' => $_POST['email'],
-      'name' => $_POST['lastname'],
-      'surname' => $_POST['firstname'],
+      'name' => $_POST['firstname'],
+      'surname' => $_POST['lastname'],
       'phone' => $phone,
       'gender' => $_POST['gender'],
       'age' => $_POST['age'],
